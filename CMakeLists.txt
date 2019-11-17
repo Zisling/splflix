@@ -6,11 +6,11 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(.)
 
 add_executable(splflix
-        Action.h
+        include/Action.h
         config1.json
         config2.json
-        json.hpp
-        Main.cpp
-        Session.h
-        User.h
-        Watchable.h Action.cpp Session.cpp User.cpp Watchable.cpp)
+        include/json.hpp
+        src/Main.cpp
+        include/Session.h
+        include/User.h
+        include/Watchable.h src/Action.cpp src/Session.cpp src/User.cpp src/Watchable.cpp)
