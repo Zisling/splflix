@@ -7,7 +7,6 @@ include_directories(.)
 
 add_executable(splflix
         Action.h
-        ass1-201_v7.pdf
         config1.json
         config2.json
         json.hpp
