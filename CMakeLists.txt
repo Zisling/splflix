@@ -14,3 +14,5 @@ add_executable(splflix
         include/Session.h
         include/User.h
         include/Watchable.h src/Action.cpp src/Session.cpp src/User.cpp src/Watchable.cpp)
+
+add_executable(test test.cpp)
