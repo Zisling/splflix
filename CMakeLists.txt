@@ -13,4 +13,4 @@ add_executable(splflix
         Main.cpp
         Session.h
         User.h
-        Watchable.h)
+        Watchable.h Action.cpp Session.cpp User.cpp Watchable.cpp)
