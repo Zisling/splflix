@@ -20,4 +20,6 @@ add_executable(test test.cpp
         json.hpp
         JsonReader.cpp
         JsonReader.h
+        include/Watchable.h
+        src/Watchable.cpp
         )

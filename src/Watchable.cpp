@@ -12,13 +12,19 @@ tags.clear();
 }
 
 
+
 Movie::Movie(long id, const std::string &name, int length, const std::vector<std::string> &tags):Watchable(id,length,tags),name(name) {
 
+}
+
+std::string Movie::toString() const {
+    return std::string();
 }
 
 std::string Movie::toString(bool print_full) const {
     return name;
 }
+
 
 Watchable *Movie::getNextWatchable(Session &) const {
     return nullptr;
@@ -35,4 +41,8 @@ std::string Episode::toString(bool print_full) const {
 
 Watchable *Episode::getNextWatchable(Session &) const {
     return nullptr;
+}
+
+std::string Episode::toString() const {
+    return std::string();
 }

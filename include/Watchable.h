@@ -24,6 +24,9 @@ public:
     Movie(long id, const std::string& name, int length, const std::vector<std::string>& tags);
     virtual std::string toString(bool print_full=false) const;
     virtual Watchable* getNextWatchable(Session&) const;
+
+    std::string toString() const override;
+
 private:
     std::string name;
 };
@@ -34,6 +37,9 @@ public:
     Episode(long id, const std::string& seriesName,int length, int season, int episode ,const std::vector<std::string>& tags);
     virtual std::string toString(bool print_full=false) const;
     virtual Watchable* getNextWatchable(Session&) const;
+
+    std::string toString() const override;
+
 private:
     std::string seriesName;
     int season;
