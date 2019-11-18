@@ -29,6 +29,10 @@ public:
     int getLength() const;
     const std::vector<std::string> &getTags() const;
 
+    //Setters
+    void setLength(int length);
+    void setTags(const std::vector<std::string> &tags);
+
 
     virtual std::string toString() const = 0;
     virtual Watchable* getNextWatchable(Session&) const = 0;
@@ -45,11 +49,14 @@ private:
  *
  *
  */
+
 class Movie : public Watchable{
 public:
     //Constructors
     Movie(long id, const std::string& name, int length, const std::vector<std::string>& tags);
     Movie(const Movie &other);
+    //Copy Assignment Operator
+    Movie&operator=(const Movie& other);
 
     virtual std::string toString(bool print_full=false) const;
     virtual Watchable* getNextWatchable(Session&) const;
@@ -68,7 +75,10 @@ private:
  ***/
 class Episode: public Watchable{
 public:
+    //Constructors
     Episode(long id, const std::string& seriesName,int length, int season, int episode ,const std::vector<std::string>& tags);
+    Episode(const Episode &other);
+
     virtual std::string toString(bool print_full=false) const;
     virtual Watchable* getNextWatchable(Session&) const;
 

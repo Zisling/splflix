@@ -10,11 +10,16 @@ int main() {
 //
     b->push_back("asd");
     b->push_back("ebebjssdf");
-    Movie *ter = new Movie(56, "Drac", 56, *b);
+    Watchable *ter = new Movie(56, "Drac", 56, *b);
+    Watchable *TERERR=new Movie(99,"LOL",77,*b);
+    *TERERR=*ter;
 
-    Watchable *teroor = new Movie((*ter));
+    std::cout<<TERERR->getLength()<<std::endl;
 
-    std::cout<<teroor->getLength()<<std::endl;
+    delete ter;
+    delete TERERR;
+    delete b;
+
 
 //Session s("/home/zisling/CLionProjects/splflix/config1.json");
 //    const std::vector<Watchable*>& cont = s.getContent();
