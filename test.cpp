@@ -1,9 +1,8 @@
 #include "include/Session.h"
 #include "include/json.hpp"
 #include <iostream>
-#include <fstream>
-#include "JsonReader.h"
 #include "include/Watchable.h"
+#include "include/Action.h"
 using json = nlohmann::json;
 
 int main() {
@@ -11,9 +10,9 @@ int main() {
 //
     b->push_back("asd");
     b->push_back("ebebjssdf");
-    Watchable *ter =    new Movie(56, "Drac", 56, *b);
+    Movie *ter = new Movie(56, "Drac", 56, *b);
 
-    Watchable *teroor=new Movie(*ter);
+    Watchable *teroor = new Movie((*ter));
 
     std::cout<<teroor->getLength()<<std::endl;
 
@@ -34,7 +33,6 @@ int main() {
     }
     delete a;*/
 
-}
 
 
 

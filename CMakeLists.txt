@@ -24,4 +24,6 @@ add_executable(test test.cpp
         src/Watchable.cpp
         include/Session.h
         src/Session.cpp
+        include/Action.h
+        src/Action.cpp
         )

@@ -4,9 +4,9 @@
 #include "include/Watchable.h"
 
 
-/*
+/***
  * Watchable
- */
+ ***/
 //Watchable Constructor
 Watchable::Watchable(long id, int length, const std::vector<std::string> &tags):id(id),length(length){
 this->tags=tags;

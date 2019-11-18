@@ -17,6 +17,13 @@ public:
 
     const std::vector<Watchable *> &getContent() const;
 
+    const std::vector<BaseAction *> &getActionsLog() const;
+
+    const std::unordered_map<std::string, User *> &getUserMap() const;
+
+    User *getActiveUser() const;
+
+
 private:
     std::vector<Watchable*> content;
     std::vector<BaseAction*> actionsLog;

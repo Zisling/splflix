@@ -86,3 +86,15 @@ void Session::start() {
 const std::vector<Watchable *> &Session::getContent() const {
     return content;
 }
+
+const std::vector<BaseAction *> &Session::getActionsLog() const {
+    return actionsLog;
+}
+
+const std::unordered_map<std::string, User *> &Session::getUserMap() const {
+    return userMap;
+}
+
+User *Session::getActiveUser() const {
+    return activeUser;
+}
