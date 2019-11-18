@@ -7,7 +7,7 @@
 using json = nlohmann::json;
 
 
-Session::Session(const std::string &configFilePath):userMap(),actionsLog() {
+Session::Session(const std::string &configFilePath):userMap(),actionsLog(),activeUser(nullptr) {
 //    id counter
     int count = 1;
 //    init of json read file
