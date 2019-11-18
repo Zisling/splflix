@@ -6,14 +6,14 @@
 
 #include <utility>
 
-JsonReader::JsonReader(const std::string& path):tags_(new std::vector<std::string>),seasons_(new std::vector<int>) {
+JsonReader::JsonReader(const std::string& path):tags_(new std::vector<std::string>),seasons_(new std::vector<int>),empty_(false) {
     std::ifstream f(path);
     f>>j_;
     type_iterator_ = j_.begin();
     i_=type_iterator_.value();
     watchable_iterator_= i_.begin();
     type_=type_iterator_.key();
-    nxet_watchable();
+    nextWatchable();
 
 
 }
@@ -52,15 +52,10 @@ const std::vector<std::string> &JsonReader::getTags() const {
     return *tags_;
 }
 
-void JsonReader::nxet_watchable() {
-        tags_->clear();
-        seasons_->clear();
-        episode_length_=-1;
-        length_=-1;
-        name_="";
+void JsonReader::nextWatchable() {
+        clean();
         type_=type_iterator_.key();
         if (type_.empty()){empty_=true;}
-        if (!isEmpty()){
         if(type_=="movies"){
             name_=(*watchable_iterator_)["name"];
             length_=(*watchable_iterator_)["length"];
@@ -77,7 +72,7 @@ void JsonReader::nxet_watchable() {
             for (const auto &item : (*watchable_iterator_)["seasons"]) {
                 seasons_->push_back(item);
             }
-        }}
+        }
         push_next();
 
 }
@@ -95,4 +90,12 @@ void JsonReader::push_next() {
 
 bool JsonReader::isEmpty() {
     return empty_;
+}
+
+void JsonReader::clean() {
+    tags_->clear();
+    seasons_->clear();
+    episode_length_=-1;
+    length_=-1;
+    name_="";
 }

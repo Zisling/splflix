@@ -3,127 +3,83 @@
 
 #include <string>
 #include <iostream>
-#include "Customer.h"
+
+class Session;
 
 enum ActionStatus{
-    PENDING, COMPLETED, ERROR
+	PENDING, COMPLETED, ERROR
 };
 
-//Forward declaration
-class Restaurant;
 
 class BaseAction{
 public:
-    BaseAction();
-    ActionStatus getStatus() const;
-    virtual void act(Restaurant& restaurant)=0;
-    virtual std::string toString() const=0;
+	BaseAction();
+	ActionStatus getStatus() const;
+	virtual void act(Session& sess)=0;
+	virtual std::string toString() const=0;
 protected:
-    void complete();
-    void error(std::string errorMsg);
-    std::string getErrorMsg() const;
+	void complete();
+	void error(const std::string& errorMsg);
+	std::string getErrorMsg() const;
 private:
-    std::string errorMsg;
-    ActionStatus status;
+	std::string errorMsg;
+	ActionStatus status;
+};
+
+class CreateUser  : public BaseAction {
+public:
+	virtual void act(Session& sess);
+	virtual std::string toString() const;
+};
+
+class ChangeActiveUser : public BaseAction {
+public:
+	virtual void act(Session& sess);
+	virtual std::string toString() const;
+};
+
+class DeleteUser : public BaseAction {
+public:
+	virtual void act(Session & sess);
+	virtual std::string toString() const;
 };
 
 
-class OpenTable : public BaseAction {
+class DuplicateUser : public BaseAction {
 public:
-    OpenTable(int id, std::vector<Customer *> &customersList);
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-	const int tableId;
-	std::vector<Customer *> customers;
+	virtual void act(Session & sess);
+	virtual std::string toString() const;
+};
+
+class PrintContentList : public BaseAction {
+public:
+	virtual void act (Session& sess);
+	virtual std::string toString() const;
+};
+
+class PrintWatchHistory : public BaseAction {
+public:
+	virtual void act (Session& sess);
+	virtual std::string toString() const;
 };
 
 
-class Order : public BaseAction {
+class Watch : public BaseAction {
 public:
-    Order(int id);
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-    const int tableId;
-};
-
-
-class MoveCustomer : public BaseAction {
-public:
-    MoveCustomer(int src, int dst, int customerId);
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-    const int srcTable;
-    const int dstTable;
-    const int id;
-};
-
-
-class Close : public BaseAction {
-public:
-    Close(int id);
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-    const int tableId;
-};
-
-
-class CloseAll : public BaseAction {
-public:
-    CloseAll();
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-};
-
-
-class PrintMenu : public BaseAction {
-public:
-    PrintMenu();
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-};
-
-
-class PrintTableStatus : public BaseAction {
-public:
-    PrintTableStatus(int id);
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
-    const int tableId;
+	virtual void act(Session& sess);
+	virtual std::string toString() const;
 };
 
 
 class PrintActionsLog : public BaseAction {
 public:
-    PrintActionsLog();
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
+	virtual void act(Session& sess);
+	virtual std::string toString() const;
 };
 
-
-class BackupRestaurant : public BaseAction {
+class Exit : public BaseAction {
 public:
-    BackupRestaurant();
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-private:
+	virtual void act(Session& sess);
+	virtual std::string toString() const;
 };
-
-
-class RestoreResturant : public BaseAction {
-public:
-    RestoreResturant();
-    void act(Restaurant &restaurant);
-    std::string toString() const;
-
-};
-
-
 #endif

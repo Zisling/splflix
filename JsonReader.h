@@ -34,7 +34,7 @@ public:
 
     bool isEmpty();
 
-    void nxet_watchable();
+    void nextWatchable();
 
 
 private:
@@ -50,6 +50,7 @@ private:
     json::iterator type_iterator_;
     json::iterator watchable_iterator_;
     void push_next();
+    void clean();
 };
 
 
