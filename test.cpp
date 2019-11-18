@@ -10,16 +10,21 @@ int main() {
 
     b->push_back("asd");
     b->push_back("ebebjssdf");
-    Watchable *ter = new Movie(56,"ter",56,*b);
+    Watchable *ter =    new Movie(56, "Drac", 56, *b);
+
+    Watchable *teroor=new Movie(*ter);
+
+    std::cout<<teroor->getLength()<<std::endl;
 
 
-    JsonReader *a = new JsonReader("/home/zisling/CLionProjects/splflix/config2.json");
+
+  /*  JsonReader *a = new JsonReader("/home/zisling/CLionProjects/splflix/config2.json");
     while (!a->isEmpty()){
         std::cout <<a->getType() << std::endl;
         std::cout <<a->getName() << std::endl;
         a->nextWatchable();
     }
-    delete a;
+    delete a;*/
 
 }
 
