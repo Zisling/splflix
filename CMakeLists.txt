@@ -17,4 +17,7 @@ add_executable(splflix
         include/Watchable.h src/Action.cpp src/Session.cpp src/User.cpp src/Watchable.cpp)
 
 add_executable(test test.cpp
-        json.hpp)
+        json.hpp
+        JsonReader.cpp
+        JsonReader.h
+        )
