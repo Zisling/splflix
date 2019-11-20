@@ -75,6 +75,7 @@ public:
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
 
+
 private:
     std::string name;
 };
