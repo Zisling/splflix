@@ -117,3 +117,20 @@ std::string DeleteUser::toString() const {
         return "delete user "+statusSt+" "+getErrorMsg();}
     return "delete user "+statusSt;
 }
+/**
+ * duplicateUser
+ * */
+void DuplicateUser::act(Session &sess) {
+//TODO: need to make it after User copy constructor is made
+}
+
+std::string DuplicateUser::toString() const {
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "duplicate user "+statusSt+" "+getErrorMsg();}
+    return "duplicate user "+statusSt;
+}
+
+

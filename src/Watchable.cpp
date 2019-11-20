@@ -10,11 +10,13 @@
 
 
 //Watchable Constructor
-Watchable::Watchable(long id, int length, const std::vector<std::string> &tags):id(id),length(length){
+Watchable::Watchable(long id, int length, const std::vector<std::string> &tags)
+:id(id),length(length){
 this->tags=tags;
 }
 //Watchable Copy Constructor
-Watchable::Watchable(const Watchable &other):id(other.id),length(other.length) {
+Watchable::Watchable(const Watchable &other)
+:id(other.id),length(other.length) {
 
     for(const auto & item : other.tags)
     {
@@ -23,7 +25,8 @@ Watchable::Watchable(const Watchable &other):id(other.id),length(other.length) {
 
 }
 //Watchable Move Constructor
-Watchable::Watchable(Watchable &&other):id(other.id),length(other.length) {
+Watchable::Watchable(Watchable &&other)
+:id(other.id),length(other.length) {
 
     for(const auto & item : other.tags)
     {
@@ -98,23 +101,24 @@ void Watchable::setTags(const std::vector<std::string> &tags) {
 
 
 //Constructors
-Movie::Movie(long id, const std::string &name, int length, const std::vector<std::string> &tags):Watchable(id,length,tags),name(name) {
-
+Movie::Movie(long id, int length, const std::vector<std::string> &tags, const std::string &name)
+:Watchable(id,length,tags),name(name) {
 }
 
 //Copy Constructor
-Movie::Movie(const Movie &other):Watchable(other) {
-    name=other.name;
+Movie::Movie(const Movie &other)
+:Watchable(other),name(other.name) {
 }
-//Move Constructor
-Movie::Movie(Movie &&other):Watchable(std::move(other)),name(other.name) {
 
+//Move Constructor
+Movie::Movie(Movie &&other)
+:Watchable(std::move(other)),name(other.name) {
 }
 
 //Movie Assignment Operator
-/*Movie &Movie::operator=(Watchable &&other) {
+Movie &Movie::operator=(Watchable &&other) {
 
-}*/
+}
 
 //Copy Assignment Operator
 Movie &Movie::operator=(const Watchable &other) {
@@ -142,12 +146,13 @@ Watchable *Movie::getNextWatchable(Session &) const {
 
 
 //Constructors
-Episode::Episode(long id, const std::string &seriesName, int length, int season, int episode,
-                 const std::vector<std::string> &tags):Watchable(id,length,tags),seriesName(seriesName),season(season),episode(episode) {
-
+Episode::Episode(long id, const std::string &seriesName, int length, int season, int episode,const std::vector<std::string> &tags)
+                 :Watchable(id,length,tags),seriesName(seriesName),season(season),episode(episode),nextEpisodeId(0) {
 }
+
 //Copy Constructor
-Episode::Episode(const Episode &other):Watchable(other),seriesName(other.seriesName),season(other.season),episode(other.episode),nextEpisodeId(other.nextEpisodeId){
+Episode::Episode(const Episode &other)
+:Watchable(other),seriesName(other.seriesName),season(other.season),episode(other.episode),nextEpisodeId(other.nextEpisodeId){
 }
 
 //Move Constructor

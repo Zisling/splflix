@@ -59,7 +59,7 @@ private:
 class Movie : public Watchable{
 public:
     //Constructors
-    Movie(long id, const std::string& name, int length, const std::vector<std::string>& tags);
+    Movie(long id,  int length, const std::vector<std::string>& tags,const std::string& name);
     //Copy Constructor
     Movie(const Movie &other);
     //Move Constructor
@@ -67,7 +67,7 @@ public:
 
 
     //Move Assignment Operator
- //   Movie&operator=(Watchable &&other);
+    Movie&operator=(Watchable &&other);
 
     //Copy Assignment Operator
     Movie&operator=(const Watchable& other) ;

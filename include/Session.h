@@ -25,9 +25,10 @@ public:
 
     User *getActiveUser() const;
 
-    void insertNewUser(User *toinsert, std::string &name);
+    void insertNewUser(User *toInsert, std::string &name);
     void chaneActiveUser(std::string &name);
     void deleteUser(std::string &name);
+    void dupuser(std::string &name);
 
 
 private:

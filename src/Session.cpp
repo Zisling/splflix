@@ -84,12 +84,12 @@ void Session::start() {
         std::cin>>userCommand;
         if (userCommand=="crtateUser"){act(new CreateUser);}
         else if (userCommand=="changeuser"){act(new ChangeActiveUser());}
-        else if (userCommand=="deleteuser"){act(new DeleteUser());
+        else if (userCommand=="deleteuser"){act(new DeleteUser());}
+        else if (userCommand=="dupuser"){act(new DuplicateUser());}
 
         }
 
     }
-}
 
 const std::vector<Watchable *> &Session::getContent() const {
     return content;
@@ -107,24 +107,28 @@ User *Session::getActiveUser() const {
     return activeUser;
 }
 
-void Session::insertNewUser(User *toinsert, std::string &name) {
-    userMap[name]=toinsert;
-}
-
-void Session::chaneActiveUser(std::string &name) {
-    activeUser=userMap[name];
-}
-
 void Session::act(BaseAction *action) {
     action->act(*this);
     actionsLog.push_back(action);
     std::cout <<action->toString() << std::endl;
 }
 
-void Session::deleteUser(std::string &name) {
+void Session::insertNewUser(User *toInsert, std::string &name) {
+    userMap[name]=toInsert;
+}
 
+void Session::chaneActiveUser(std::string &name) {
+    activeUser=userMap[name];
+}
+
+void Session::deleteUser(std::string &name) {
     User* a = (userMap[name]);
     userMap.erase(name);
     delete a;
 }
+
+void Session::dupuser(std::string &name) {
+//TODO: affter copy constructor
+}
+
 
