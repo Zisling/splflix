@@ -28,6 +28,26 @@ std::string BaseAction::getErrorMsg() const {
     return errorMsg;
 }
 
+BaseAction::BaseAction(const BaseAction &other):status(other.status),errorMsg(other.errorMsg) {}
+
+BaseAction &BaseAction::operator=(const BaseAction &other) {
+    status=other.status;
+    errorMsg=other.errorMsg;
+    return *this;
+}
+
+BaseAction::BaseAction(BaseAction &&other):status(other.status),errorMsg(std::move(other.errorMsg)) {
+    other.status=PENDING;
+}
+
+BaseAction &BaseAction::operator=(BaseAction &&other) {
+    status=other.status;
+    other.status=PENDING;
+    errorMsg=std::move(errorMsg);
+    return *this;
+}
+
+
 BaseAction::~BaseAction() = default;
 
 /***

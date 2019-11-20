@@ -19,6 +19,11 @@ public:
 	virtual std::string toString() const=0;
 
     virtual ~BaseAction();
+    BaseAction(const BaseAction &other);
+    virtual BaseAction&operator=(const BaseAction& other);
+    BaseAction(BaseAction && other);
+    virtual BaseAction&operator=(BaseAction&& other);
+
 
 protected:
 	void complete();
