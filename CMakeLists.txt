@@ -26,4 +26,6 @@ add_executable(test test.cpp
         src/Session.cpp
         include/Action.h
         src/Action.cpp
+        include/User.h
+        src/User.cpp
         )

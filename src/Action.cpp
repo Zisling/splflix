@@ -1,4 +1,6 @@
 #include "include/Action.h"
+#include "include/User.h"
+#include "include/Session.h"
 
 /***
  * BaseAction
@@ -17,7 +19,8 @@ void BaseAction::complete() {
 
 void BaseAction::error(const std::string &errorMsg) {
     status=ERROR;
-    std::cout << errorMsg << std::endl;
+    this->errorMsg.append(errorMsg);
+    std::cout << this->errorMsg << std::endl;
 
 }
 
@@ -27,16 +30,43 @@ std::string BaseAction::getErrorMsg() const {
 
 /***
  *crate user
- * */
+ ***/
 
 
 void CreateUser::act(Session &sess) {
+    std::string name;
+    std::string Type;
+    std::cin>>name;
+    std::cin>>Type;
+    if (sess.getUserMap().find(name)==sess.getUserMap().end()){
+        if (Type=="len") {
+            User *toSend = new LengthRecommenderUser(name);
+            sess.insertNewUser(toSend, name);
+            complete();
+        }
+        else if (Type=="rer") {
+            User *toSend = new RerunRecommenderUser(name);
+            sess.insertNewUser(toSend, name);
+            complete();
+        }
+        else if (Type=="gen") {
+            User *toSend = new GenreRecommenderUser(name);
+            sess.insertNewUser(toSend, name);
+            complete();
+        } else{error("non exiting type");}
+    } else{
+        error("user all ready exist");
+    }
 
 
 }
 
 std::string CreateUser::toString() const {
-    return std::string();
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";}
+    return "create user ";
 }
 
 

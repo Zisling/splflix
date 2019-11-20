@@ -4,14 +4,16 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-#include "Action.h"
+#include "include/Action.h"
 
 class User;
 class Watchable;
-
+#include "include/User.h"
 class Session{
 public:
+//    constructor
     Session(const std::string &configFilePath);
+
     ~Session();
     void start();
 
@@ -22,6 +24,8 @@ public:
     const std::unordered_map<std::string, User *> &getUserMap() const;
 
     User *getActiveUser() const;
+
+    void insertNewUser(User *toinsert, std::string &name);
 
 
 private:

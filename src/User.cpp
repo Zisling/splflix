@@ -1,6 +1,7 @@
 
 
 #include <include/User.h>
+#include <iostream>
 
 /*User abst*/
 User::User(const std::string &name):name(name),history() {

@@ -7,7 +7,7 @@
 using json = nlohmann::json;
 
 
-Session::Session(const std::string &configFilePath):userMap(),actionsLog(),activeUser(nullptr) {
+Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),activeUser(nullptr) {
 //    id counter
     int count = 1;
 //    init of json read file
@@ -62,7 +62,6 @@ Session::Session(const std::string &configFilePath):userMap(),actionsLog(),activ
 
         }
 
-
     }
 
 Session::~Session() {
@@ -79,8 +78,15 @@ Session::~Session() {
 
 void Session::start() {
     std::cout << "SPLFLIX is now on!"  << std::endl;
-
-
+    std::string userCommand;
+    while (userCommand!="exit"){
+        std::cin>>userCommand;
+        if (userCommand=="createuser"){
+            CreateUser *toInsert = new CreateUser();
+            toInsert->act(*this);
+            actionsLog.push_back(toInsert);
+}
+    }
 }
 
 const std::vector<Watchable *> &Session::getContent() const {
@@ -97,4 +103,10 @@ const std::unordered_map<std::string, User *> &Session::getUserMap() const {
 
 User *Session::getActiveUser() const {
     return activeUser;
+}
+
+void Session::insertNewUser(User *toinsert, std::string &name) {
+    userMap[name]=toinsert;
+
+
 }
