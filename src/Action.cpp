@@ -97,9 +97,23 @@ std::string ChangeActiveUser::toString() const {
  **/
 
 void DeleteUser::act(Session &sess) {
-
+    std::string name;
+    std::cin>>name;
+    if(sess.getUserMap().find(name)!=sess.getUserMap().end()){
+        if (sess.getActiveUser()== nullptr || sess.getActiveUser()->getName()!=name){
+        sess.deleteUser(name);
+        complete();}
+        else{error("Error - active user can't be deleted please change active user");}
+    } else{
+        error("Error - user don't exist");
+    }
 }
 
 std::string DeleteUser::toString() const {
-    return std::string();
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "delete user "+statusSt+" "+getErrorMsg();}
+    return "delete user "+statusSt;
 }

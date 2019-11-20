@@ -6,7 +6,7 @@
 using json = nlohmann::json;
 
 int main() {
-    std::vector<std::string> *b= new std::vector<std::string>;
+//    std::vector<std::string> *b= new std::vector<std::string>;
 //
 //    b->push_back("asd");
 //    b->push_back("ebebjssdf");
@@ -20,11 +20,10 @@ int main() {
 //    delete TERERR;
 //    delete b;
 
-    ActionStatus a = COMPLETED;
 
-//Session s("/home/zisling/CLionProjects/splflix/config1.json");
-//s.start();
-
+Session s("/home/zisling/CLionProjects/splflix/config1.json");
+s.start();
+s.getActiveUser();
 
     }
 

@@ -82,8 +82,11 @@ void Session::start() {
     std::string userCommand;
     while (userCommand!="exit"){
         std::cin>>userCommand;
-        if (userCommand=="createuser"){crtateUser();}
-        if (userCommand=="changeuser"){changeUser();}
+        if (userCommand=="crtateUser"){act(new CreateUser);}
+        else if (userCommand=="changeuser"){act(new ChangeActiveUser());}
+        else if (userCommand=="deleteuser"){act(new DeleteUser());
+
+        }
 
     }
 }
@@ -108,21 +111,20 @@ void Session::insertNewUser(User *toinsert, std::string &name) {
     userMap[name]=toinsert;
 }
 
-void Session::crtateUser() {
-    CreateUser *toInsert = new CreateUser();
-    toInsert->act(*this);
-    actionsLog.push_back(toInsert);
-}
-
 void Session::chaneActiveUser(std::string &name) {
     activeUser=userMap[name];
 }
-void Session::changeUser(){
-    ChangeActiveUser *toInsert = new ChangeActiveUser();
-    toInsert->act(*this);
-    actionsLog.push_back(toInsert);
+
+void Session::act(BaseAction *action) {
+    action->act(*this);
+    actionsLog.push_back(action);
+    std::cout <<action->toString() << std::endl;
 }
 
-void Session::deleteUser() {
+void Session::deleteUser(std::string &name) {
 
+    User* a = (userMap[name]);
+    userMap.erase(name);
+    delete a;
 }
+
