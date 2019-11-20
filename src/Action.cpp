@@ -5,7 +5,7 @@
 /***
  * BaseAction
  * */
-BaseAction::BaseAction():status(PENDING),errorMsg("Error - ") {
+BaseAction::BaseAction():status(PENDING),errorMsg("") {
 
 }
 
@@ -27,6 +27,8 @@ void BaseAction::error(const std::string &errorMsg) {
 std::string BaseAction::getErrorMsg() const {
     return errorMsg;
 }
+
+BaseAction::~BaseAction() = default;
 
 /***
  *crate user
@@ -53,20 +55,51 @@ void CreateUser::act(Session &sess) {
             User *toSend = new GenreRecommenderUser(name);
             sess.insertNewUser(toSend, name);
             complete();
-        } else{error("non exiting type");}
+        } else{error("Error - non exiting type");}
     } else{
-        error("user all ready exist");
+        error("Error - user all ready exist");
     }
-
-
 }
 
 std::string CreateUser::toString() const {
     std::string statusSt;
     if (getStatus()==PENDING){statusSt="PENDING";}
     if (getStatus()==COMPLETED){statusSt="COMPLETED";}
-    if (getStatus()==ERROR){statusSt="ERROR";}
-    return "create user ";
+    if (getStatus()==ERROR){statusSt="ERROR";
+    return "create user "+statusSt+" "+getErrorMsg();}
+    return "create user "+statusSt;
+}
+/***
+ * ChangeActiveUser
+ ***/
+
+void ChangeActiveUser::act(Session &sess) {
+    std::string name;
+    std::cin>>name;
+    if(sess.getUserMap().find(name)!=sess.getUserMap().end()){
+        sess.chaneActiveUser(name);
+        complete();
+    } else{
+        error("Error - user don't exist");
+    }
 }
 
+std::string ChangeActiveUser::toString() const {
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "change user "+statusSt+" "+getErrorMsg();}
+    return "change user "+statusSt;
+}
+/**
+ *deleteuser
+ **/
 
+void DeleteUser::act(Session &sess) {
+
+}
+
+std::string DeleteUser::toString() const {
+    return std::string();
+}

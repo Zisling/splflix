@@ -65,15 +65,16 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     }
 
 Session::~Session() {
+    activeUser= nullptr;
     for (const auto &item : content) {
         delete item;
-    }for (const auto &item : userMap) {
-        delete item.second;
-    }for (const auto &item : actionsLog) {
-        delete item;
     }
-    delete activeUser;
-
+    for (const auto &item1 : actionsLog) {
+        delete item1;
+    }
+    for (const auto &item3 : userMap) {
+        delete item3.second;
+    }
 }
 
 void Session::start() {
@@ -81,11 +82,9 @@ void Session::start() {
     std::string userCommand;
     while (userCommand!="exit"){
         std::cin>>userCommand;
-        if (userCommand=="createuser"){
-            CreateUser *toInsert = new CreateUser();
-            toInsert->act(*this);
-            actionsLog.push_back(toInsert);
-}
+        if (userCommand=="createuser"){crtateUser();}
+        if (userCommand=="changeuser"){changeUser();}
+
     }
 }
 
@@ -107,6 +106,23 @@ User *Session::getActiveUser() const {
 
 void Session::insertNewUser(User *toinsert, std::string &name) {
     userMap[name]=toinsert;
+}
 
+void Session::crtateUser() {
+    CreateUser *toInsert = new CreateUser();
+    toInsert->act(*this);
+    actionsLog.push_back(toInsert);
+}
+
+void Session::chaneActiveUser(std::string &name) {
+    activeUser=userMap[name];
+}
+void Session::changeUser(){
+    ChangeActiveUser *toInsert = new ChangeActiveUser();
+    toInsert->act(*this);
+    actionsLog.push_back(toInsert);
+}
+
+void Session::deleteUser() {
 
 }

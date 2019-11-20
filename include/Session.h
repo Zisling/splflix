@@ -26,6 +26,7 @@ public:
     User *getActiveUser() const;
 
     void insertNewUser(User *toinsert, std::string &name);
+    void chaneActiveUser(std::string &name);
 
 
 private:
@@ -33,5 +34,8 @@ private:
     std::vector<BaseAction*> actionsLog;
     std::unordered_map<std::string,User*> userMap;
     User* activeUser;
+    void crtateUser();
+    void changeUser();
+    void deleteUser();
 };
 #endif
