@@ -20,10 +20,10 @@ public:
     Watchable(const Watchable& other);
     //Move Constructor
     Watchable(Watchable &&other);
-    //Move Assignment Operator
-    virtual Watchable&operator=(Watchable &&other);
     //Copy Assignment Operator
     virtual Watchable&operator=(const Watchable& other);
+    //Move Assignment Operator
+    virtual Watchable&operator=(Watchable &&other);
 
     //Destructor
     virtual ~Watchable();
@@ -59,7 +59,7 @@ private:
 class Movie : public Watchable{
 public:
     //Constructors
-    Movie(long id,  int length, const std::vector<std::string>& tags,const std::string& name);
+    Movie(long id, const std::string& name, int length, const std::vector<std::string>& tags);
     //Copy Constructor
     Movie(const Movie &other);
     //Move Constructor
@@ -67,10 +67,10 @@ public:
 
 
     //Move Assignment Operator
-    Movie&operator=(Watchable &&other);
+    Movie&operator=(Watchable &&other) override;
 
     //Copy Assignment Operator
-    Movie&operator=(const Watchable& other) ;
+    Movie&operator=(const Watchable& other) override;
 
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
@@ -97,10 +97,10 @@ public:
 
 
     //Copy Assignment Operator
-    Episode&operator=(const Watchable &other);
+    virtual Episode&operator=(const Watchable &other) override;
 
     //Move Assignment Operator
- //   Episode&operator=(Watchable &&other);
+    virtual Episode&operator=(Watchable &&other) override;
 
     //Methods
     virtual std::string toString() const;
