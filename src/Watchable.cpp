@@ -215,7 +215,7 @@ Watchable *Episode::getNextWatchable(Session &) const {
 
 //Episode To String Function
 std::string Episode::toString() const {
-    return seriesName+" S"+std::to_string(season)+"E"+std::to_string(episode);
+    return seriesName;
 }
 
 
