@@ -2,7 +2,7 @@
 // Created by zisling on 17/11/2019.
 //
 #include "include/Watchable.h"
-
+#include "iostream"
 
 /***
  *              Watchable
@@ -23,12 +23,14 @@ Watchable::Watchable(const Watchable &other):id(other.id),length(other.length) {
 
 }
 //Watchable Copy Assignment Operator
-void Watchable::operator=(const Watchable &other) {
+Watchable& Watchable::operator=(const Watchable &other) {
+    std::cout<<"Watchable assign is called"<<std::endl;
     length=other.length;
     tags.clear();
     for (const auto &item : other.tags) {
         tags.push_back(item);
     }
+    return *this;
 }
 
 
@@ -75,20 +77,15 @@ Movie::Movie(const Movie &other):Watchable(other) {
     name=other.name;
 }
 //Copy Assignment Operator
-Movie &Movie::operator=(const Movie &other) {
-
-    this->setLength(other.getLength());
-
-    this->setTags(other.getTags());
-    this->name=other.name;
-
+Movie &Movie::operator=(const Watchable &other) {
+    Watchable::operator=(other);
+    const Movie *pMovie = dynamic_cast<const Movie*>(&other);
+    std::cout<<"Movie assign is called"<<std::endl;
+    this->name=pMovie->name;
+    return *this;
 }
 
 std::string Movie::toString() const {
-    return std::string();
-}
-
-std::string Movie::toString(bool print_full) const {
     return name;
 }
 
@@ -96,8 +93,6 @@ std::string Movie::toString(bool print_full) const {
 Watchable *Movie::getNextWatchable(Session &) const {
     return nullptr;
 }
-
-
 
 
 /**
@@ -116,18 +111,28 @@ Episode::Episode(const Episode &other):Watchable(other),seriesName(other.seriesN
 
 
 }
-
-
-std::string Episode::toString(bool print_full) const {
-    return seriesName+" S"+std::to_string(season)+"E"+std::to_string(episode);
+//Copy Assignment Operator
+Episode &Episode::operator=(const Watchable &other) {
+    Watchable::operator=(other);
+    const Episode *pEpisode = dynamic_cast<const Episode*>(&other);
+    std::cout<<"Episode assign is called"<<std::endl;
+    seriesName=pEpisode->seriesName;
+    season=pEpisode->season;
+    episode=pEpisode->episode;
+    nextEpisodeId=pEpisode->nextEpisodeId;
+    return *this;
 }
+
+
+
 
 Watchable *Episode::getNextWatchable(Session &) const {
     return nullptr;
 }
 
 std::string Episode::toString() const {
-    return std::string();
+    return seriesName+" S"+std::to_string(season)+"E"+std::to_string(episode);
 }
+
 
 

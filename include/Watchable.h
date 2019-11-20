@@ -19,7 +19,7 @@ public:
     Watchable(long id, int length, const std::vector<std::string>& tags);
     Watchable(const Watchable& other);
     //Copy Assignment Operator
-    void operator=(const Watchable& other);
+    virtual Watchable&operator=(const Watchable& other);
 
     //Destructor
     virtual ~Watchable();
@@ -56,12 +56,10 @@ public:
     Movie(long id, const std::string& name, int length, const std::vector<std::string>& tags);
     Movie(const Movie &other);
     //Copy Assignment Operator
-    Movie&operator=(const Movie& other);
+    Movie&operator=(const Watchable& other) ;
 
-    virtual std::string toString(bool print_full=false) const;
+    virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
-
-    std::string toString() const override;
 
 private:
     std::string name;
@@ -78,11 +76,12 @@ public:
     //Constructors
     Episode(long id, const std::string& seriesName,int length, int season, int episode ,const std::vector<std::string>& tags);
     Episode(const Episode &other);
+    //Copy Assignment Operator
+    Episode&operator=(const Watchable &other);
 
-    virtual std::string toString(bool print_full=false) const;
+    virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
 
-    std::string toString() const override;
 
 private:
     std::string seriesName;
