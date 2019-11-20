@@ -22,6 +22,36 @@ Watchable::Watchable(const Watchable &other):id(other.id),length(other.length) {
     }
 
 }
+//Watchable Move Constructor
+Watchable::Watchable(Watchable &&other):id(other.id),length(other.length) {
+
+    for(const auto & item : other.tags)
+    {
+        tags.push_back(item);
+    }
+
+    other.length=0;
+    other.tags.clear();
+
+}
+
+//Watchable Move Assignment Operator
+Watchable &Watchable::operator=(Watchable &&other) {
+    if(this != &other)
+    {
+        this->tags.clear();
+        for(const auto & item : other.tags)
+        {
+            tags.push_back(item);
+        }
+        this->length=other.length;
+        other.length=0;
+        other.tags.clear();
+
+    }
+    return *this;
+}
+
 //Watchable Copy Assignment Operator
 Watchable& Watchable::operator=(const Watchable &other) {
     std::cout<<"Watchable assign is called"<<std::endl;
@@ -76,6 +106,16 @@ Movie::Movie(long id, const std::string &name, int length, const std::vector<std
 Movie::Movie(const Movie &other):Watchable(other) {
     name=other.name;
 }
+//Move Constructor
+Movie::Movie(Movie &&other):Watchable(std::move(other)),name(other.name) {
+
+}
+
+//Movie Assignment Operator
+/*Movie &Movie::operator=(Watchable &&other) {
+
+}*/
+
 //Copy Assignment Operator
 Movie &Movie::operator=(const Watchable &other) {
     Watchable::operator=(other);
@@ -108,9 +148,18 @@ Episode::Episode(long id, const std::string &seriesName, int length, int season,
 }
 //Copy Constructor
 Episode::Episode(const Episode &other):Watchable(other),seriesName(other.seriesName),season(other.season),episode(other.episode),nextEpisodeId(other.nextEpisodeId){
+}
 
+//Move Constructor
+Episode::Episode(Episode &&other):Watchable(std::move(other)),seriesName(other.seriesName),season(other.season),episode(other.episode),nextEpisodeId(other.nextEpisodeId) {
+
+    other.season=0;
+    other.episode=0;
+    other.nextEpisodeId=0;
 
 }
+
+
 //Copy Assignment Operator
 Episode &Episode::operator=(const Watchable &other) {
     Watchable::operator=(other);
@@ -120,6 +169,7 @@ Episode &Episode::operator=(const Watchable &other) {
     season=pEpisode->season;
     episode=pEpisode->episode;
     nextEpisodeId=pEpisode->nextEpisodeId;
+
     return *this;
 }
 
