@@ -177,15 +177,15 @@ void Watch::watchById(int id,Session &sess) {
         Watchable* toInsert =sess.getContent()[id];
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
-        complete();
             Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
             std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] " << std::endl;
             std::string userCommand;
             std::cin>>userCommand;
-            while (userCommand=="y"){
+            if (userCommand=="y"){
                 watchById(recommend->getId(),sess);
-                std::cin >>userCommand;
             }
+        complete();
+
     } else{
         error("this id don't exist");
     }
