@@ -43,6 +43,7 @@ public:
 
     virtual std::string toString() const = 0;
     virtual Watchable* getNextWatchable(Session&) const = 0;
+    virtual std::string getName() const=0;
 
 private:
     const long id;
@@ -77,7 +78,7 @@ public:
 
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
-
+    virtual std::string getName() const override ;
 
 private:
     std::string name;
@@ -109,7 +110,7 @@ public:
     //Methods
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
-
+    virtual std::string getName() const override ;
 
 private:
     std::string seriesName;

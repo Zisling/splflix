@@ -3,6 +3,7 @@
 //
 #include "include/Watchable.h"
 #include "iostream"
+#include "include/Session.h"
 
 /***
  *              Watchable
@@ -143,6 +144,11 @@ std::string Movie::toString() const {
 }
 
 
+//Movie getName Function
+std::string Movie::getName() const {
+    return name;
+}
+
 Watchable *Movie::getNextWatchable(Session &) const {
     return nullptr;
 }
@@ -208,15 +214,28 @@ Episode &Episode::operator=(const Episode &other) {
 }
 
 
-
-
-Watchable *Episode::getNextWatchable(Session &) const {
-    return nullptr;
+//Episode getName function
+std::string Episode::getName() const {
+    return seriesName;
 }
+
+//Episode getNextWatchable function
+Watchable *Episode::getNextWatchable(Session &s) const {
+    const std::vector<Watchable*>& vec_Watchables(s.getContent());
+    std::string toCheck=vec_Watchables[this->getId()]->getName();
+    if (this->getName() == toCheck) {
+        return vec_Watchables[this->getId()];
+    }
+    else
+        return nullptr;
+
+
+}
+
 
 //Episode To String Function
 std::string Episode::toString() const {
-    return seriesName;
+    return seriesName+" S"+std::to_string(season)+"E"+std::to_string(episode);
 }
 
 
