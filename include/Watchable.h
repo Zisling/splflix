@@ -17,6 +17,7 @@ class Watchable{
 public:
     //Constructors//
     Watchable(long id, int length, const std::vector<std::string>& tags);
+    //Copy Constructor
     Watchable(const Watchable& other);
     //Move Constructor
     Watchable(Watchable &&other);
