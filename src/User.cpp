@@ -1,8 +1,6 @@
 
 
 #include <include/User.h>
-#include <iostream>
-#include "algorithm"
 
 
 /**
@@ -70,6 +68,7 @@ User::~User() {
     for (auto &item : history) {
         delete item;
     }
+}
 
 
 /***
@@ -80,23 +79,24 @@ User::~User() {
  *
  * ***/
 
-/***lengthRecommder***/
 LengthRecommenderUser::LengthRecommenderUser(const std::string &name) : User(name) ,avg(0){
 }
 
 Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
     Watchable *toRecommend = history[history.size() - 1]->getNextWatchable(s);
+    double i = history.size();
+    avg = ((avg * (i - 1)) / i) + ((double) (history[history.size() - 1]->getLength()) / i);
     if (toRecommend == nullptr){
-        double i = history.size();
-        avg = ((avg * (i - 1)) / i) + ((double) (history[history.size() - 1]->getLength()) / i);
+        std::unordered_set<Watchable*> search_set(history.begin(),history.end());
         double minLen = std::numeric_limits<double>::max();
         for (const auto &item : s.getContent()) {
-            if (std::abs(avg-(double)(item->getLength()))<minLen && std::find(history.begin(),history.end(),item)==history.end()){
+            if (std::abs(avg-(double)(item->getLength()))<minLen && search_set.find(item)==search_set.end()){
             minLen=std::abs(avg-item->getLength());
             toRecommend=item;
             }
         }
-}
+        search_set.clear();
+    }
     return toRecommend;
 }
 
@@ -132,10 +132,16 @@ Watchable *RerunRecommenderUser::getRecommendation(Session &s) {
  */
 
 
-GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name) {
-
+GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name), genreCounterMap() {
 }
 
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
-    return nullptr;
+    Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
+    for (const auto &tag : history[history.size()-1]->getTags()) {
+        genreCounterMap[tag]++;
+    }
+    if(toRecommend == nullptr){
+
+    }
+    return toRecommend;
 }

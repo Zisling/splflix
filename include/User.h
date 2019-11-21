@@ -8,6 +8,7 @@
 class Watchable;
 class Session;
 #include "include/Session.h"
+
 class User{
 public:
     //User Constructor
@@ -63,6 +64,7 @@ public:
     GenreRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
 private:
+    std::unordered_map<std::string,int> genreCounterMap;
 };
 
 #endif
