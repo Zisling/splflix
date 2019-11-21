@@ -184,6 +184,7 @@ void Watch::watchById(int id,Session &sess) {
             std::cin>>userCommand;
             while (userCommand=="y"){
                 watchById(recommend->getId(),sess);
+                std::cin >>userCommand;
             }
     } else{
         error("this id don't exist");
