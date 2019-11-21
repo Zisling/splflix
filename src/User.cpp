@@ -70,6 +70,10 @@ User::~User() {
     }
 }
 
+void User::insertToHistory(Watchable *insert) {
+    history.push_back(insert);
+}
+
 
 /***
  *

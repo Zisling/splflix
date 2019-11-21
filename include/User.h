@@ -31,6 +31,7 @@ public:
 
     std::string getName() const;
     std::vector<Watchable*> get_history() const;
+    void insertToHistory(Watchable* insert);
 
     //User Destructor
     virtual ~User();

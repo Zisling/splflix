@@ -86,10 +86,11 @@ void Session::start() {
         else if (userCommand=="changeuser"){act(new ChangeActiveUser());}
         else if (userCommand=="deleteuser"){act(new DeleteUser());}
         else if (userCommand=="dupuser"){act(new DuplicateUser());}
+        else if (userCommand=="watch"){act(new Watch());}
+        }
 
         }
 
-    }
 
 const std::vector<Watchable *> &Session::getContent() const {
     return content;
@@ -129,10 +130,6 @@ void Session::deleteUser(std::string &name) {
 
 void Session::dupuser(std::string &name) {
 //TODO: affter copy constructor
-}
-
-void Session::WatchIt(Watchable *ToRec) {
-        act(new Watch);
 }
 
 

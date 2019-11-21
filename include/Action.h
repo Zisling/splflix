@@ -76,6 +76,7 @@ class Watch : public BaseAction {
 public:
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+	void watchById(int id,Session &sess);
 };
 
 

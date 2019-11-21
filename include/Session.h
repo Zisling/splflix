@@ -31,7 +31,6 @@ public:
     void deleteUser(std::string &name);
     void dupuser(std::string &name);
     void act(BaseAction *action);
-    void WatchIt(Watchable* ToRec);
 
 
 private:

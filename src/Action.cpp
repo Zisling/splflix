@@ -156,9 +156,38 @@ std::string DuplicateUser::toString() const {
  * watch
  * */
 void Watch::act(Session &sess) {
+    int id;
+    std::cin>>id;
+    watchById(id,sess);
+    }
 
-}
+
 
 std::string Watch::toString() const {
-    return std::string();
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "Watch "+statusSt+" "+getErrorMsg();}
+    return "Watch "+statusSt;
 }
+
+void Watch::watchById(int id,Session &sess) {
+    if(id>0 && id<sess.getContent().size()){
+        Watchable* toInsert =sess.getContent()[id];
+        sess.getActiveUser()->insertToHistory(toInsert);
+        std::cout <<"Watching "<<toInsert->toString() << std::endl;
+        complete();
+            Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
+            std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] " << std::endl;
+            std::string userCommand;
+            std::cin>>userCommand;
+            while (userCommand=="y"){
+                watchById(recommend->getId(),sess);
+            }
+    } else{
+        error("this id don't exist");
+    }
+}
+
+
