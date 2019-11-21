@@ -6,24 +6,24 @@
 using json = nlohmann::json;
 
 int main() {
-//    std::vector<std::string> *b= new std::vector<std::string>;
-//
-//    b->push_back("asd");
-//    b->push_back("ebebjssdf");
-//    Watchable *ter = new Movie(56, "Drac", 56, *b);
-//    Watchable *TERERR=new Movie(99,"LOL",77,*b);
-//    *TERERR=*ter;
-//
-//    std::cout<<TERERR->getLength()<<std::endl;
-//
-//    delete ter;
-//    delete TERERR;
-//    delete b;
+    std::vector<std::string> *b= new std::vector<std::string>;
+
+    b->push_back("asd");
+    b->push_back("ebebjssdf");
+    Watchable *ter = new Movie(56, "Drac", 56, *b);
+    Movie *TERERR=new Movie(99,"LOL",77,*b);
+    Watchable *tam=new Episode(12,"wtf",12,12,13,*b);
+    *TERERR = *tam;
 
 
-Session s("/home/zisling/CLionProjects/splflix/config1.json");
-s.start();
-s.getActiveUser();
+    delete ter;
+    delete TERERR;
+    delete b;
+
+
+//Session s("/home/zisling/CLionProjects/splflix/config1.json");
+//s.start();
+//s.getActiveUser();
 
     }
 
