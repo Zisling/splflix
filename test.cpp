@@ -12,10 +12,14 @@ int main() {
     b->push_back("ebebjssdf");
     Watchable *ter = new Movie(56, "Drac", 56, *b);
     Movie *TERERR=new Movie(99,"LOL",77,*b);
-    Watchable *tam=new Episode(12,"wtf",12,12,13,*b);
-    *TERERR = *tam;
-
-
+    Movie *lala=new Movie(99,"LOL",77,*b);
+    Episode *tam=new Episode(12,"wtf",12,12,13,*b);
+    Episode *toto=new Episode(12,"wtf",12,12,13,*b);
+    *TERERR=std::move(*lala);
+    *toto=std::move(*tam);
+//    *TERERR = *tam;
+//
+//
     delete ter;
     delete TERERR;
     delete b;

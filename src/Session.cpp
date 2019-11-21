@@ -131,4 +131,8 @@ void Session::dupuser(std::string &name) {
 //TODO: affter copy constructor
 }
 
+void Session::WatchIt(Watchable *ToRec) {
+        act(new Watch);
+}
+
 

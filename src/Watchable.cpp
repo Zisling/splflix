@@ -57,14 +57,14 @@ Watchable& Watchable::operator=(const Watchable &other) {
 Watchable &Watchable::operator=(Watchable &&other) {
     if(this != &other)
     {
-        this->tags.clear();
-        for(const auto & item : other.tags)
-        {
-            tags.push_back(item);
-        }
+        this->tags=std::move(other.tags);
+//        for(const auto & item : other.tags)
+//        {
+//            tags.push_back(item);
+//        }
         this->length=other.length;
         other.length=0;
-        other.tags.clear();
+//        other.tags.clear();
 
     }
     return *this;
@@ -117,11 +117,10 @@ Movie::Movie(Movie &&other)
 :Watchable(std::move(other)),name(other.name) {
 }
 
-//Movie Assignment Operator
-Movie &Movie::operator=(Watchable &&other) {
-    const Movie *pMovie = dynamic_cast<const Movie *>(&other);
-    if((this!=&other)&(pMovie!= nullptr)) {
-        this->name = pMovie->name;
+//Move Assignment Operator
+Movie &Movie::operator=(Movie &&other) {
+    if((this!=&other)) {
+        this->name = other.name;
         Watchable::operator=(std::move(other));
     }
     return *this;
@@ -129,12 +128,11 @@ Movie &Movie::operator=(Watchable &&other) {
 }
 
 //Copy Assignment Operator
-Movie &Movie::operator=(const Watchable &other)  {
-    const Movie *pMovie = dynamic_cast<const Movie *>(&other);
-    if((this!=&other)&(pMovie!= nullptr)) {
+Movie &Movie::operator=(const Movie &other)  {
+    if((this!=&other)) {
         Watchable::operator=(other);
         std::cout << "Movie assign is called" << std::endl;
-        this->name = pMovie->name;
+        this->name = other.name;
     }
     return *this;
 }
@@ -148,6 +146,8 @@ std::string Movie::toString() const {
 Watchable *Movie::getNextWatchable(Session &) const {
     return nullptr;
 }
+
+
 
 
 
@@ -179,29 +179,30 @@ Episode::Episode(Episode &&other)
 }
 
 //Move Assignment Operator
-Episode &Episode::operator=(Watchable &&other) {
-    const Episode *pEpisode = dynamic_cast<const Episode *>(&other);
-    if((this!=&other)&(pEpisode!= nullptr))
+Episode &Episode::operator=(Episode &&other) {
+    if((this!=&other))
     {
-        this->seriesName = pEpisode->seriesName;
-        this->season=pEpisode->season;
-        this->episode=pEpisode->episode;
-        this->nextEpisodeId=pEpisode->nextEpisodeId;
+        this->seriesName = std::move(other.seriesName);
+        this->season=other.season;
+        this->episode=other.episode;
+        this->nextEpisodeId=other.nextEpisodeId;
+        other.season=0;
+        other.episode=0;
+        other.nextEpisodeId=0;
         Watchable::operator=(std::move(other));
     }
     return *this;
 }
 
 //Copy Assignment Operator
-Episode &Episode::operator=(const Watchable &other) {
-    const Episode *pEpisode = dynamic_cast<const Episode *>(&other);
-    if((this!=&other)&(pEpisode!= nullptr)) {
+Episode &Episode::operator=(const Episode &other) {
+    if((this!=&other)) {
         Watchable::operator=(other);
         std::cout << "Episode assign is called" << std::endl;
-        seriesName = pEpisode->seriesName;
-        season = pEpisode->season;
-        episode = pEpisode->episode;
-        nextEpisodeId = pEpisode->nextEpisodeId;
+        seriesName = other.seriesName;
+        season = other.season;
+        episode = other.episode;
+        nextEpisodeId = other.nextEpisodeId;
     }
     return *this;
 }

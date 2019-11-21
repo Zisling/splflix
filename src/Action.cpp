@@ -152,5 +152,13 @@ std::string DuplicateUser::toString() const {
         return "duplicate user "+statusSt+" "+getErrorMsg();}
     return "duplicate user "+statusSt;
 }
+/***
+ * watch
+ * */
+void Watch::act(Session &sess) {
 
+}
 
+std::string Watch::toString() const {
+    return std::string();
+}

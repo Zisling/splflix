@@ -7,7 +7,7 @@
 #include <unordered_map>
 class Watchable;
 class Session;
-
+#include "include/Session.h"
 class User{
 public:
     User(const std::string& name);
@@ -31,6 +31,8 @@ public:
     LengthRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
 private:
+    double avg;
+
 };
 
 class RerunRecommenderUser : public User {
@@ -38,6 +40,7 @@ public:
     RerunRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
 private:
+    unsigned long Index;
 };
 
 class GenreRecommenderUser : public User {

@@ -9,6 +9,7 @@
 class User;
 class Watchable;
 #include "include/User.h"
+#include "include/Watchable.h"
 class Session{
 public:
 //    constructor
@@ -29,6 +30,8 @@ public:
     void chaneActiveUser(std::string &name);
     void deleteUser(std::string &name);
     void dupuser(std::string &name);
+    void act(BaseAction *action);
+    void WatchIt(Watchable* ToRec);
 
 
 private:
@@ -37,6 +40,5 @@ private:
     std::unordered_map<std::string,User*> userMap;
     User* activeUser;
 
-    void act(BaseAction *action);
 };
 #endif
