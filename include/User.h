@@ -35,6 +35,7 @@ public:
 
     //User Destructor
     virtual ~User();
+    void PrintHistory();
 
 protected:
     std::vector<Watchable*> history;

@@ -86,6 +86,8 @@ void Session::start() {
         else if (userCommand=="changeuser"){act(new ChangeActiveUser());}
         else if (userCommand=="deleteuser"){act(new DeleteUser());}
         else if (userCommand=="dupuser"){act(new DuplicateUser());}
+        else if (userCommand=="content"){act(new PrintContentList());}
+        else if (userCommand=="watchhist"){act(new PrintWatchHistory());}
         else if (userCommand=="watch"){act(new Watch());}
         }
 

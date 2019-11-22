@@ -67,12 +67,22 @@ std::vector<Watchable *> User::get_history() const {
 //User Destructor
 User::~User() {
     for (auto &item : history) {
-        delete item;
+        item= nullptr;
     }
+    history.clear();
 }
 
 void User::insertToHistory(Watchable *insert) {
     history.push_back(insert);
+}
+
+void User::PrintHistory() {
+    unsigned long id = 0;
+    for (const auto &item : history) {
+        id++;
+        std::cout <<id<<". "<<item->toString() << std::endl;
+
+    }
 }
 
 

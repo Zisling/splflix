@@ -152,6 +152,50 @@ std::string DuplicateUser::toString() const {
         return "duplicate user "+statusSt+" "+getErrorMsg();}
     return "duplicate user "+statusSt;
 }
+
+/***
+ * PrintContentList
+ ***/
+void PrintContentList::act(Session &sess) {
+    if (!sess.getContent().empty()){
+        for (const auto &content : sess.getContent()) {
+            std::string tagsSt;
+            if(!content->getTags().empty()){
+                tagsSt="[";
+                for (auto iterator = content->getTags().begin(); iterator != content->getTags().end()-1; ++iterator) {
+                    tagsSt.append(*iterator.base()+", ");
+                }
+                tagsSt.append(content->getTags().at(content->getTags().size()-1) + "]");
+            }
+            std::cout<<content->getId() <<"." <<content->toString() <<tagsSt << std::endl;
+        }
+        complete();
+    } else{
+        error("no content avbailable");
+    }
+}
+
+std::string PrintContentList::toString() const {
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "content "+statusSt+" "+getErrorMsg();}
+    return "content "+statusSt;
+}
+/***
+ * PrintWathchHistory
+ ***/
+void PrintWatchHistory::act(Session &sess) {
+    sess.getActiveUser().PrintHistory();
+    complete();
+}
+
+std::string PrintWatchHistory::toString() const {
+    return std::string();
+}
+
+
 /***
  * watch
  * */
@@ -181,9 +225,14 @@ void Watch::watchById(int id,Session &sess) {
             std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] " << std::endl;
             std::string userCommand;
             std::cin>>userCommand;
+        while (userCommand!="n"){
             if (userCommand=="y"){
-                watchById(recommend->getId(),sess);
+                watchById(recommend->getId()-1,sess);}
+            else if(userCommand!= "n"){
+                std::cout << "[y/n] input"<< std::endl;
+                std::cin>>userCommand;
             }
+        }
         complete();
 
     } else{
