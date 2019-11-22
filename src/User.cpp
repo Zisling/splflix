@@ -1,6 +1,7 @@
 
 
 #include <include/User.h>
+#include <limits>
 
 
 /**
@@ -136,16 +137,40 @@ Watchable *RerunRecommenderUser::getRecommendation(Session &s) {
  */
 
 
-GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name), genreCounterMap() {
+GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name), genreCounterMap(),tagSet() {
 }
 
+//Todo: search for user most popular tag, with a Tag set to the genreMap
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
+    int maxReturn=0;
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
     for (const auto &tag : history[history.size()-1]->getTags()) {
-        genreCounterMap[tag]++;
+       genreCounterMap[tag]++;
+        tagSet.insert(tag);
     }
     if(toRecommend == nullptr){
+        //Start of Finding the Tag to Recommend
+        std::string tagToRecommend;
+        std::string tagPrev;
+        for (const auto &item : tagSet) {
+            if(maxReturn<(genreCounterMap[item]))
+            {
+                maxReturn=genreCounterMap[item];
+                tagToRecommend=item;
+            }
+            else if(maxReturn==genreCounterMap[item])
+            {
+                if(std::string(item)>std::string(tagPrev))
+                    tagToRecommend=item;
+            }
+            tagPrev=item;
+        }
+        //End of Finding the Tag to Recommend
 
+
+        //toRecommend=content with same genre, if more genres has the same popularity(cardinality) choose by lexicographic order,
+        //choose a watchable with same tag that wasn't already watched,->>>Content/history
+        //if there is no such content with this genre tag, it will search for the next biggest tag and so on
     }
     return toRecommend;
 }

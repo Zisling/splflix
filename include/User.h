@@ -66,6 +66,7 @@ public:
     virtual Watchable* getRecommendation(Session& s);
 private:
     std::unordered_map<std::string,int> genreCounterMap;
+    std::unordered_set<std::string> tagSet;
 };
 
 #endif
