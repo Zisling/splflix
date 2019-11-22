@@ -161,17 +161,17 @@ void PrintContentList::act(Session &sess) {
         for (const auto &content : sess.getContent()) {
             std::string tagsSt;
             if(!content->getTags().empty()){
-                tagsSt="[";
+                tagsSt=" [";
                 for (auto iterator = content->getTags().begin(); iterator != content->getTags().end()-1; ++iterator) {
                     tagsSt.append(*iterator.base()+", ");
                 }
                 tagsSt.append(content->getTags().at(content->getTags().size()-1) + "]");
             }
-            std::cout<<content->getId() <<"." <<content->toString() <<tagsSt << std::endl;
+            std::cout<<content->getId() <<". " <<content->toString() <<" "<<content->getLength()<<" minutes"<<tagsSt << std::endl;
         }
         complete();
     } else{
-        error("no content avbailable");
+        error("no content available");
     }
 }
 
