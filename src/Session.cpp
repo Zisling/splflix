@@ -82,7 +82,7 @@ void Session::start() {
     std::string userCommand;
     while (userCommand!="exit"){
         std::cin>>userCommand;
-        if (userCommand=="crtateUser"){act(new CreateUser);}
+        if (userCommand=="createuser"){act(new CreateUser);}
         else if (userCommand=="changeuser"){act(new ChangeActiveUser());}
         else if (userCommand=="deleteuser"){act(new DeleteUser());}
         else if (userCommand=="dupuser"){act(new DuplicateUser());}

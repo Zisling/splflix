@@ -187,7 +187,7 @@ std::string PrintContentList::toString() const {
  * PrintWathchHistory
  ***/
 void PrintWatchHistory::act(Session &sess) {
-    sess.getActiveUser().PrintHistory();
+    sess.getActiveUser()->PrintHistory();
     complete();
 }
 
@@ -217,17 +217,18 @@ std::string Watch::toString() const {
 }
 
 void Watch::watchById(int id,Session &sess) {
-    if(id>0 && id<sess.getContent().size()){
-        Watchable* toInsert =sess.getContent()[id];
+    if(id>0 && id<sess.getContent().size()+1){
+        Watchable* toInsert =sess.getContent()[id-1];
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
             Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
             std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] " << std::endl;
+            std::cout<<recommend->getId()<<std::endl;
             std::string userCommand;
             std::cin>>userCommand;
         while (userCommand!="n"){
             if (userCommand=="y"){
-                watchById(recommend->getId()-1,sess);}
+                watchById(recommend->getId(),sess);}
             else if(userCommand!= "n"){
                 std::cout << "[y/n] input"<< std::endl;
                 std::cin>>userCommand;
