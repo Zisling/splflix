@@ -72,7 +72,13 @@ Session::Session(const Session &otherSess)
 {
 this->content.reserve(otherSess.content.size());
     for (const auto &otherContent : otherSess.content) {
-        this->content.emplace_back(otherContent);
+        if (dynamic_cast<Movie*>(otherContent)!= nullptr){
+            Movie *toEmplace=new Movie(*dynamic_cast<Movie*>(otherContent));
+            this->content.emplace_back(toEmplace);}
+        else if (dynamic_cast<Episode*>(otherContent)!= nullptr){
+            Episode *toEmplace=new Episode(*dynamic_cast<Episode*>(otherContent));
+            this->content.emplace_back(toEmplace);
+        }
     }
 }
 

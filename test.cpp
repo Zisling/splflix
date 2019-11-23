@@ -35,10 +35,10 @@ int main() {
 //    delete b;
 //
 //
-    Session s("C:\\Users\\Nir\\CLionProjects\\splflix\\config2.json");
-    s.start();
-    s.getActiveUser();
-
+    Session s("/home/zisling/CLionProjects/splflix/config1.json");
+//    s.start();
+//    s.getActiveUser();
+    Session r(s);
 
     duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
 
