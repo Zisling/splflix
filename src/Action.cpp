@@ -51,7 +51,7 @@ BaseAction &BaseAction::operator=(BaseAction &&other) {
 BaseAction::~BaseAction() = default;
 
 /***
- *crate user
+ *create user
  ***/
 
 
@@ -228,7 +228,6 @@ void Watch::watchById(int id,Session &sess) {
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
             Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
             std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] " << std::endl;
-            std::cout<<recommend->getId()<<std::endl;
             std::string userCommand;
             std::cin>>userCommand;
         while (userCommand!="n"){

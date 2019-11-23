@@ -2,7 +2,17 @@
 
 #include <include/User.h>
 #include <limits>
+#include <algorithm>
 
+
+
+
+
+
+/*TagCountPair::TagCountPair(int count, std::string string) {
+    this->count=count;
+    this->Tag=std::move(string);
+}*/
 
 /**
  *
@@ -147,7 +157,7 @@ Watchable *RerunRecommenderUser::getRecommendation(Session &s) {
  */
 
 
-GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name), genreCounterMap(),tagSet() {
+GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet() {
 }
 
 //Todo: search for user most popular tag, with a Tag set to the genreMap
@@ -155,9 +165,11 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
     int maxReturn=0;
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
     for (const auto &tag : history[history.size()-1]->getTags()) {
+
        genreCounterMap[tag]++;
         tagSet.insert(tag);
     }
+
     if(toRecommend == nullptr){
         //Start of Finding the Tag to Recommend
         std::string tagToRecommend;
@@ -177,6 +189,11 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
         }
         //End of Finding the Tag to Recommend
 
+        //for each watchable in content, checks if watchable has the popular tag, and checks if the watchable is already in the user watch history
+        for (const auto &watchable : s.getContent()) {
+            if((toRecommend== nullptr)&&std::find(watchable->getTags().begin(),watchable->getTags().end(),tagToRecommend)!=watchable->getTags().end()&std::find(history.begin(),history.end(),watchable)==history.end())
+            toRecommend=watchable;
+        }
 
         //toRecommend=content with same genre, if more genres has the same popularity(cardinality) choose by lexicographic order,
         //choose a watchable with same tag that wasn't already watched,->>>Content/history
@@ -184,3 +201,27 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
     }
     return toRecommend;
 }
+
+/*Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
+    Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
+    int i=0;
+    for (const auto &tag : history[history.size()-1]->getTags()) {
+        if(std::find(tagCountVector.begin(),tagCountVector.end(),)==tagCountVector.end())
+          tagCountVector.emplace_back(TagCountPair(0,tag));
+        else
+            tagCountVector[i].count++;
+        i=0;
+    }
+    if(!(std::is_sorted(tagCountVector.begin(),tagCountVector.end())))
+        std::sort(tagCountVector.begin(),tagCountVector.end());
+
+
+
+    if(toRecommend== nullptr)
+    {
+
+    }
+
+
+    return toRecommend;
+}*/

@@ -26,7 +26,7 @@ int main() {
 //    delete b;
 //
 //
-Session s("C:\\Users\\Nir\\CLionProjects\\splflix\\config1.json");
+Session s("C:\\Users\\Nir\\CLionProjects\\splflix\\config2.json");
 s.start();
 s.getActiveUser();
 

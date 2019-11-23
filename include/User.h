@@ -9,6 +9,14 @@ class Watchable;
 class Session;
 #include "include/Session.h"
 
+/*struct TagCountPair
+{
+    std::string Tag;
+    int count;
+    TagCountPair(int,std::string);
+
+};*/
+
 class User{
 public:
     //User Constructor
@@ -68,6 +76,7 @@ public:
 private:
     std::unordered_map<std::string,int> genreCounterMap;
     std::unordered_set<std::string> tagSet;
+//      std::vector<TagCountPair> tagCountVector;
 };
 
 #endif
