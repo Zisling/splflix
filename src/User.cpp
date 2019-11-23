@@ -83,7 +83,7 @@ User::~User() {
 }
 
 void User::insertToHistory(Watchable *insert) {
-    history.push_back(insert);
+    history.emplace_back(insert);
 }
 
 void User::PrintHistory() {

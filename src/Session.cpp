@@ -7,6 +7,9 @@
 using json = nlohmann::json;
 
 
+
+
+//Session Constructor
 Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),activeUser(nullptr) {
 //    id counter
     int count = 1;
@@ -63,7 +66,18 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
         }
 
     }
+//Session Copy Constructor
+//TODO:
+Session::Session(const Session &otherSess)
+{
+this->content.reserve(otherSess.content.size());
+    for (const auto &otherContent : otherSess.content) {
+        this->content.emplace_back(otherContent);
+    }
+}
 
+
+//Session Destructor
 Session::~Session() {
     activeUser= nullptr;
     for (const auto &item : content) {
@@ -122,7 +136,7 @@ void Session::insertNewUser(User *toInsert, std::string &name) {
     userMap[name]=toInsert;
 }
 
-void Session::chaneActiveUser(std::string &name) {
+void Session::changeActiveUser(std::string &name) {
     activeUser=userMap[name];
 }
 
@@ -135,5 +149,6 @@ void Session::deleteUser(std::string &name) {
 void Session::dupuser(std::string &name) {
 //TODO: affter copy constructor
 }
+
 
 

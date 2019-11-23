@@ -12,8 +12,13 @@ class Watchable;
 #include "include/Watchable.h"
 class Session{
 public:
-//    constructor
+//  Constructor
     Session(const std::string &configFilePath);
+//  Copy Constructor
+    Session(const Session&);
+//  Move Constructor
+    Session(Session&&);
+
 
     ~Session();
     void start();
@@ -27,7 +32,7 @@ public:
     User *getActiveUser() const;
 
     void insertNewUser(User *toInsert, std::string &name);
-    void chaneActiveUser(std::string &name);
+    void changeActiveUser(std::string &name);
     void deleteUser(std::string &name);
     void dupuser(std::string &name);
     void act(BaseAction *action);

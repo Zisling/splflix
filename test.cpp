@@ -3,15 +3,24 @@
 #include <iostream>
 #include "include/Watchable.h"
 #include "include/Action.h"
+#include <cstdio>
+#include <ctime>
 using json = nlohmann::json;
 
 int main() {
-    std::vector<std::string> *b= new std::vector<std::string>;
+
+
+    std::clock_t start;
+    double duration;
+
+    start = std::clock();
+
+    std::vector<std::string> *b = new std::vector<std::string>;
 //
-   b->push_back("asd");
+    b->push_back("asd");
 //    b->push_back("ebebjssdf");
 //    Watchable *ter = new Movie(56, "Drac", 56, *b);
-    Movie *TERERR=new Movie(99,"LOL",77,*b);
+    Movie *TERERR = new Movie(99, "LOL", 77, *b);
 //    Movie *lala=new Movie(99,"LOL",77,*b);
 //    Episode *tam=new Episode(12,"wtf",12,12,13,*b);
 //    Episode *toto=new Episode(12,"wtf",12,12,13,*b);
@@ -26,11 +35,17 @@ int main() {
 //    delete b;
 //
 //
-Session s("C:\\Users\\Nir\\CLionProjects\\splflix\\config2.json");
-s.start();
-s.getActiveUser();
+    Session s("C:\\Users\\Nir\\CLionProjects\\splflix\\config2.json");
+    s.start();
+    s.getActiveUser();
 
-    }
+
+    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+    std::cout << "Took " << duration << " seconds" << '\n';
+}
+
+
 
 
 

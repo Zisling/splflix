@@ -51,7 +51,7 @@ BaseAction &BaseAction::operator=(BaseAction &&other) {
 BaseAction::~BaseAction() = default;
 
 /***
- *create user
+                *Create_User
  ***/
 
 
@@ -75,9 +75,9 @@ void CreateUser::act(Session &sess) {
             User *toSend = new GenreRecommenderUser(name);
             sess.insertNewUser(toSend, name);
             complete();
-        } else{error("Error - non exiting type");}
+        } else{error("Error - non existing type");}
     } else{
-        error("Error - user all ready exist");
+        error("Error - user already exist");
     }
 }
 
@@ -89,18 +89,20 @@ std::string CreateUser::toString() const {
     return "create user "+statusSt+" "+getErrorMsg();}
     return "create user "+statusSt;
 }
+
+
 /***
- * ChangeActiveUser
+ *                      Change_Active_User
  ***/
 
 void ChangeActiveUser::act(Session &sess) {
     std::string name;
     std::cin>>name;
     if(sess.getUserMap().find(name)!=sess.getUserMap().end()){
-        sess.chaneActiveUser(name);
+        sess.changeActiveUser(name);
         complete();
     } else{
-        error("Error - user don't exist");
+        error("Error - user doesn't exist");
     }
 }
 
@@ -112,8 +114,9 @@ std::string ChangeActiveUser::toString() const {
         return "change user "+statusSt+" "+getErrorMsg();}
     return "change user "+statusSt;
 }
+
 /**
- *deleteuser
+                    *Delete_User
  **/
 
 void DeleteUser::act(Session &sess) {
@@ -123,9 +126,9 @@ void DeleteUser::act(Session &sess) {
         if (sess.getActiveUser()== nullptr || sess.getActiveUser()->getName()!=name){
         sess.deleteUser(name);
         complete();}
-        else{error("Error - active user can't be deleted please change active user");}
+        else{error("Error - this user is an active user can't be deleted please change active user");}
     } else{
-        error("Error - user don't exist");
+        error("Error - user doesn't exist");
     }
 }
 
@@ -137,6 +140,7 @@ std::string DeleteUser::toString() const {
         return "delete user "+statusSt+" "+getErrorMsg();}
     return "delete user "+statusSt;
 }
+
 /**
  * duplicateUser
  * */
@@ -222,14 +226,14 @@ std::string Watch::toString() const {
 }
 
 void Watch::watchById(int id,Session &sess) {
+
     if(id>0 && id<sess.getContent().size()+1){
         Watchable* toInsert =sess.getContent()[id-1];
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
             Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
             if(recommend!= nullptr) {
-                std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] "
-                          << std::endl;
+                std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] "<< std::endl;
                 std::string userCommand;
                 std::cin >> userCommand;
                 while (userCommand != "n") {
@@ -246,7 +250,7 @@ void Watch::watchById(int id,Session &sess) {
                 std::cout<<"Sorry! no more new content to watch!"<<std::endl;
 
     } else{
-        error("this id don't exist");
+        error("this id doesn't exist");
     }
 }
 
