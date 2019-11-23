@@ -228,7 +228,8 @@ void Watch::watchById(int id,Session &sess) {
             std::cin>>userCommand;
         while (userCommand!="n"){
             if (userCommand=="y"){
-                watchById(recommend->getId(),sess);}
+                watchById(recommend->getId(),sess);
+                userCommand="n";}
             else if(userCommand!= "n"){
                 std::cout << "[y/n] input"<< std::endl;
                 std::cin>>userCommand;
@@ -239,6 +240,20 @@ void Watch::watchById(int id,Session &sess) {
     } else{
         error("this id don't exist");
     }
+}
+
+void PrintActionsLog::act(Session &sess) {
+
+
+}
+
+std::string PrintActionsLog::toString() const {
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "PrintActionLog "+statusSt+" "+getErrorMsg();}
+    return "PrintActionLog "+statusSt;
 }
 
 
