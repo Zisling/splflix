@@ -227,19 +227,23 @@ void Watch::watchById(int id,Session &sess) {
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
             Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
-            std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] " << std::endl;
-            std::string userCommand;
-            std::cin>>userCommand;
-        while (userCommand!="n"){
-            if (userCommand=="y"){
-                watchById(recommend->getId(),sess);
-                userCommand="n";}
-            else if(userCommand!= "n"){
-                std::cout << "[y/n] input"<< std::endl;
-                std::cin>>userCommand;
-            }
-        }
-        complete();
+            if(recommend!= nullptr) {
+                std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] "
+                          << std::endl;
+                std::string userCommand;
+                std::cin >> userCommand;
+                while (userCommand != "n") {
+                    if (userCommand == "y") {
+                        watchById(recommend->getId(), sess);
+                        userCommand = "n";
+                    } else if (userCommand != "n") {
+                        std::cout << "[y/n] input" << std::endl;
+                        std::cin >> userCommand;
+                    }
+                }
+                complete();
+            } else
+                std::cout<<"Sorry! no more new content to watch!"<<std::endl;
 
     } else{
         error("this id don't exist");
