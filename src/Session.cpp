@@ -77,6 +77,7 @@ Session::~Session() {
     }
 }
 
+//Starts SPLFLIX and handles inputs
 void Session::start() {
     std::cout << "SPLFLIX is now on!"  << std::endl;
     std::string userCommand;
