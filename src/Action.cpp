@@ -192,7 +192,12 @@ void PrintWatchHistory::act(Session &sess) {
 }
 
 std::string PrintWatchHistory::toString() const {
-    return std::string();
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "PrintWathchHistory "+statusSt+" "+getErrorMsg();}
+    return "PrintWathchHistory "+statusSt;
 }
 
 
@@ -243,8 +248,9 @@ void Watch::watchById(int id,Session &sess) {
 }
 
 void PrintActionsLog::act(Session &sess) {
-
-
+    for (const auto &actionsLog : sess.getActionsLog()) {
+        std::cout<<actionsLog->toString()<<std::endl;
+    }
 }
 
 std::string PrintActionsLog::toString() const {
