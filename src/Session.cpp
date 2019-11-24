@@ -92,9 +92,12 @@ Session::~Session() {
 }
 
 //Starts SPLFLIX and handles inputs
-//TODO add exit, use duplicte
 void Session::start() {
-
+    if (userMap["default"]== nullptr&&activeUser== nullptr){
+        User* defaultUser = new LengthRecommenderUser("default");
+        activeUser=defaultUser;
+        userMap["default"]=defaultUser;
+    }
     std::cout << "SPLFLIX is now on!"  << std::endl;
     std::string userCommand;
     while (userCommand!="exit"){
@@ -108,6 +111,8 @@ void Session::start() {
         else if (userCommand=="watch"){act(new Watch());}
         else if (userCommand=="log"){act(new PrintActionsLog());}
         else if (userCommand=="exit"){act(new Exit());}
+        else{std::cin.clear();
+            std::cout <<"command don't exist" << std::endl;}
         }
 
         }
