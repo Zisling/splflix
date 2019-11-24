@@ -30,7 +30,9 @@ public:
     virtual ~Watchable();
 
     //copy
-    virtual Watchable* copy();
+    virtual Watchable* copy()=0;
+    //steal
+    virtual Watchable* steal()=0;
 
     //Getters
     const long getId() const;
@@ -84,6 +86,9 @@ public:
     //copy
     virtual Watchable* copy();
 
+    Watchable *steal() override;
+
+
 private:
     std::string name;
 };
@@ -118,6 +123,8 @@ public:
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
     virtual std::string getName() const override ;
+
+    Watchable *steal() override;
 
 private:
     std::string seriesName;

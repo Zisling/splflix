@@ -45,7 +45,7 @@ public:
     virtual ~User();
     void PrintHistory();
 //    copy function;
-    virtual  User* copy();
+    virtual  User* copy()=0;
 
 protected:
     std::vector<Watchable*> history;

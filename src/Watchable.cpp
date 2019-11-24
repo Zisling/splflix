@@ -5,8 +5,6 @@
 #include "iostream"
 #include "include/Session.h"
 
-/*TODO:
- * add copy to all*/
 /***
  *              Watchable
  ***/
@@ -155,7 +153,13 @@ Watchable *Movie::getNextWatchable(Session &) const {
     return nullptr;
 }
 
+Watchable *Movie::copy() {
+    return new Movie(*this);
+}
 
+Watchable *Movie::steal() {
+    return new Movie (std::move(*this));
+}
 
 
 
@@ -233,7 +237,7 @@ Watchable *Episode::getNextWatchable(Session &s) const {
     else
         return nullptr;
 
-
+    return nullptr;
 }
 
 
@@ -243,4 +247,10 @@ std::string Episode::toString() const {
 }
 
 
+Watchable *Episode::copy() {
+    return new Episode(*this);
+}
 
+Watchable *Episode::steal() {
+    return new Episode(std::move(*this));
+}

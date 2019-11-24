@@ -100,9 +100,6 @@ void User::PrintHistory() {
     }
 }
 
-User *User::copy() {
-    return nullptr;
-}
 
 
 /***
@@ -226,6 +223,7 @@ User *GenreRecommenderUser::copy() {
 }
 //@TODO need a fix to the vectors
 GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet) {
+
 }
 
 /*Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
