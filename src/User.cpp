@@ -14,10 +14,39 @@
  * clean all comments
  * */
 
-/*TagCountPair::TagCountPair(int count, std::string string) {
-    this->count=count;
-    this->Tag=std::move(string);
-}*/
+
+
+
+tagCountPair::tagCountPair(int count, std::string tag) {
+    m_count=count;
+    m_tag=tag;
+}
+
+const int tagCountPair::getCount() const {
+    return m_count;
+}
+
+const std::string tagCountPair::getTag() const {
+    return m_tag;
+}
+
+void tagCountPair::setCount(int count) {
+    this->m_count=count;
+}
+
+//tagCountPair comprator -compares numerically and then lexiographicly
+bool tagCountPairComprator::operator()(const tagCountPair &tagPair1, const tagCountPair &tagPair2) {
+
+        if(tagPair1.getCount()>tagPair2.getCount())
+            return true;
+        if(tagPair1.getCount()==tagPair2.getCount()) {
+            if (tagPair1.getTag() < tagPair2.getTag()) {
+                return true;
+            }
+        }
+    return false;
+}
+
 
 /**
  *
@@ -176,22 +205,37 @@ RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &other):Us
  *
  */
 
-GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet() {
+GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet(),tagCountVector() {
 }
 
 //Todo: search for user most popular tag, with a Tag set to the genreMap
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
-    int maxReturn=0;
+  //  int maxReturn=0;
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
     for (const auto &tag : history[history.size()-1]->getTags()) {
-
        genreCounterMap[tag]++;
         tagSet.insert(tag);
     }
 
+    for (const auto &tag : tagSet) {
+        bool toinsert=true;
+
+        for (tagCountPair &item : tagCountVector) {
+            if(item.getTag()==tag) {
+                toinsert = false;
+                item.setCount(genreCounterMap[tag]);
+            }
+        }
+        if(toinsert)
+        tagCountVector.emplace_back(tagCountPair(genreCounterMap[tag],tag));
+    }
+    std::sort(tagCountVector.begin(),tagCountVector.end(),tagCountPairComprator());
+
     if(toRecommend == nullptr){
+
+
         //Start of Finding the Tag to Recommend
-        std::string tagToRecommend;
+      /*  std::string tagToRecommend;
         std::string tagPrev;
         for (const auto &item : tagSet) {
             if(maxReturn<(genreCounterMap[item]))
@@ -207,10 +251,11 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
             tagPrev=item;
         }
         //End of Finding the Tag to Recommend
+*/
 
         //for each watchable in content, checks if watchable has the popular tag, and checks if the watchable is already in the user watch history
         for (const auto &watchable : s.getContent()) {
-            if((toRecommend== nullptr)&&std::find(watchable->getTags().begin(),watchable->getTags().end(),tagToRecommend)!=watchable->getTags().end()&std::find(history.begin(),history.end(),watchable)==history.end())
+            if((toRecommend== nullptr)&&std::find(watchable->getTags().begin(),watchable->getTags().end(),(tagCountVector[tagCountVector.size()-1].getTag()))!=watchable->getTags().end()&std::find(history.begin(),history.end(),watchable)==history.end())
             toRecommend=watchable;
         }
 

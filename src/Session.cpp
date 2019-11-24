@@ -20,7 +20,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     f >> myJson;
 //    loop on the type of content
     for (const auto &item : myJson.items()) {
-//        crate movie obj and puse into content
+//        crate movie obj and push into content
         if (item.key()=="movies"){
             for (const auto &value : item.value()) {
                 std::string name= value["name"];
@@ -112,7 +112,7 @@ void Session::start() {
         else if (userCommand=="log"){act(new PrintActionsLog());}
         else if (userCommand=="exit"){act(new Exit());}
         else{std::cin.clear();
-            std::cout <<"command don't exist" << std::endl;}
+            std::cout <<"command doesn't exist" << std::endl;}
         }
 
         }

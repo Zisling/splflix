@@ -30,7 +30,10 @@ int main() {
     *TERERR = *tam;
     Watchable *re =TERERR->steal();
 
+    Session s("/home/nir/CLionProjects/splflix/config2.json");
+    s.start();
     duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
 
     std::cout << "Took " << duration << " seconds" << '\n';
 }

@@ -9,6 +9,20 @@ class Watchable;
 class Session;
 #include "include/Session.h"
 
+struct tagCountPair{
+private:
+    int m_count;
+    std::string m_tag;
+public:
+    tagCountPair(int count,std::string tag);
+    const int getCount() const;
+    const std::string getTag() const;
+    void setCount(int);
+};
+
+struct tagCountPairComprator{
+    bool operator ()(const tagCountPair &tagPair1, const tagCountPair &tagPair2);
+};
 /*struct TagCountPair
 {
     std::string Tag;
@@ -86,7 +100,7 @@ public:
 private:
     std::unordered_map<std::string,int> genreCounterMap;
     std::unordered_set<std::string> tagSet;
-//      std::vector<TagCountPair> tagCountVector;
+      std::vector<tagCountPair> tagCountVector;
 };
 
 #endif
