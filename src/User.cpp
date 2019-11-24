@@ -95,6 +95,10 @@ void User::PrintHistory() {
     }
 }
 
+User *User::copy() {
+    return nullptr;
+}
+
 
 /***
  *
@@ -125,7 +129,12 @@ Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
     return toRecommend;
 }
 
+User *LengthRecommenderUser::copy() {
+    return new LengthRecommenderUser(*this);
+}
 
+LengthRecommenderUser::LengthRecommenderUser(const LengthRecommenderUser &other):User(other),avg(other.avg) {
+}
 
 
 /**
@@ -147,6 +156,12 @@ Watchable *RerunRecommenderUser::getRecommendation(Session &s) {
     return toRecommend;
 }
 
+User *RerunRecommenderUser::copy() {
+    return new RerunRecommenderUser(*this);
+}
+
+RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &other):User(other), Index(other.Index){
+}
 
 
 /**
@@ -200,6 +215,13 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
         //if there is no such content with this genre tag, it will search for the next biggest tag and so on
     }
     return toRecommend;
+}
+
+User *GenreRecommenderUser::copy() {
+    return new GenreRecommenderUser(*this);
+}
+
+GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet) {
 }
 
 /*Watchable *GenreRecommenderUser::getRecommendation(Session &s) {

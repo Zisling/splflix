@@ -15,12 +15,19 @@ int main() {
 
     start = std::clock();
 
-    std::vector<std::string> *b = new std::vector<std::string>;
+
+    User* hedi=new LengthRecommenderUser("hedi");
+    User* zisling =hedi->copy();
+    if (dynamic_cast<LengthRecommenderUser*>(zisling)!= nullptr){
+        std::cout <<"it work" << std::endl;
+
+    }
+//    std::vector<std::string> *b = new std::vector<std::string>;
 //
-    b->push_back("asd");
+//    b->push_back("asd");
 //    b->push_back("ebebjssdf");
 //    Watchable *ter = new Movie(56, "Drac", 56, *b);
-    Movie *TERERR = new Movie(99, "LOL", 77, *b);
+//    Movie *TERERR = new Movie(99, "LOL", 77, *b);
 //    Movie *lala=new Movie(99,"LOL",77,*b);
 //    Episode *tam=new Episode(12,"wtf",12,12,13,*b);
 //    Episode *toto=new Episode(12,"wtf",12,12,13,*b);
@@ -30,19 +37,19 @@ int main() {
 //
 //
 //    delete ter;
-    delete TERERR;
+//    delete TERERR;
 
 //    delete b;
 //
 //
-    Session s("/home/zisling/CLionProjects/splflix/config1.json");
+//    Session s("/home/zisling/CLionProjects/splflix/config1.json");
 //    s.start();
 //    s.getActiveUser();
-    Session r(s);
+//    Session r(s);
 
-    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
-
-    std::cout << "Took " << duration << " seconds" << '\n';
+//    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+//
+//    std::cout << "Took " << duration << " seconds" << '\n';
 }
 
 

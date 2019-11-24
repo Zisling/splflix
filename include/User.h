@@ -44,6 +44,8 @@ public:
     //User Destructor
     virtual ~User();
     void PrintHistory();
+//    copy function;
+    virtual  User* copy();
 
 protected:
     std::vector<Watchable*> history;
@@ -56,6 +58,8 @@ class LengthRecommenderUser : public User {
 public:
     LengthRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
+    virtual  User* copy();
+    LengthRecommenderUser(const LengthRecommenderUser& other);
 private:
     double avg;
 
@@ -65,6 +69,8 @@ class RerunRecommenderUser : public User {
 public:
     RerunRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
+    virtual  User* copy();
+    RerunRecommenderUser(const RerunRecommenderUser& other);
 private:
     unsigned long Index;
 };
@@ -73,6 +79,8 @@ class GenreRecommenderUser : public User {
 public:
     GenreRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
+    virtual  User* copy();
+    GenreRecommenderUser(const GenreRecommenderUser& other);
 private:
     std::unordered_map<std::string,int> genreCounterMap;
     std::unordered_set<std::string> tagSet;
