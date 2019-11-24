@@ -227,16 +227,12 @@ std::string Episode::getName() const {
 
 //Episode getNextWatchable function
 Watchable *Episode::getNextWatchable(Session &s) const {
-    const std::vector<Watchable*>& vec_Watchables(s.getContent());
-    if(vec_Watchables.size()<this->getId()) {
-        std::string toCheck = vec_Watchables[this->getId()]->getName();
+    if(s.getContent().size()>this->getId()) {
+        std::string toCheck = s.getContent()[this->getId()]->getName();
         if (this->getName() == toCheck) {
-            return vec_Watchables[this->getId()];
+            return s.getContent()[this->getId()];
         }
     }
-    else
-        return nullptr;
-
     return nullptr;
 }
 

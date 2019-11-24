@@ -206,16 +206,26 @@ RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &other):Us
  */
 
 GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet(),tagCountVector() {
+
 }
 
 //Todo: search for user most popular tag, with a Tag set to the genreMap
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
-  //  int maxReturn=0;
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
+    for (const auto &item : s.getContent()) {
+        for (const auto &tag : item->getTags()) {
+            if(genreCounterMap[tag]==0){
+            tagSet.insert(tag);
+            genreCounterMap[tag]=0;}
+        }
+
+    }
     for (const auto &tag : history[history.size()-1]->getTags()) {
        genreCounterMap[tag]++;
         tagSet.insert(tag);
     }
+
+
 
     for (const auto &tag : tagSet) {
         bool toinsert=true;
@@ -233,31 +243,30 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
 
     if(toRecommend == nullptr){
 
-
-        //Start of Finding the Tag to Recommend
-      /*  std::string tagToRecommend;
-        std::string tagPrev;
-        for (const auto &item : tagSet) {
-            if(maxReturn<(genreCounterMap[item]))
-            {
-                maxReturn=genreCounterMap[item];
-                tagToRecommend=item;
-            }
-            else if(maxReturn==genreCounterMap[item])
-            {
-                if(std::string(item)>std::string(tagPrev))
-                    tagToRecommend=item;
-            }
-            tagPrev=item;
-        }
-        //End of Finding the Tag to Recommend
-*/
-
         //for each watchable in content, checks if watchable has the popular tag, and checks if the watchable is already in the user watch history
-        for (const auto &watchable : s.getContent()) {
-            if((toRecommend== nullptr)&&std::find(watchable->getTags().begin(),watchable->getTags().end(),(tagCountVector[tagCountVector.size()-1].getTag()))!=watchable->getTags().end()&std::find(history.begin(),history.end(),watchable)==history.end())
-            toRecommend=watchable;
+        bool inHistory = true;
+        for (int i = 0; i <tagCountVector.size()&toRecommend== nullptr&inHistory ; ++i) {
+            for (int k = 0 ; k<s.getContent().size()&inHistory; ++k) {
+                const auto content = s.getContent()[k];
+                for (const auto &item : content->getTags()) {
+                    if (tagCountVector[i].getTag()==item){
+                        bool tmp = false;
+                        for (int j = 0; j < history.size()&&!tmp; ++j) {
+                            if (history[j]->toString()==content->toString()){
+                                tmp= true;
+                            }}
+                            if (!tmp){
+                                toRecommend=content;
+                                inHistory= false;}
+                    }
+                }
+            }
         }
+
+//        for (const auto &watchable : s.getContent()) {
+//            if((toRecommend== nullptr)&&std::find(watchable->getTags().begin(),watchable->getTags().end(),(tagCountVector[0].getTag()))!=watchable->getTags().end()&std::find(history.begin(),history.end(),watchable)==history.end())
+//            toRecommend=watchable;
+//        }
 
         //toRecommend=content with same genre, if more genres has the same popularity(cardinality) choose by lexicographic order,
         //choose a watchable with same tag that wasn't already watched,->>>Content/history
@@ -273,27 +282,3 @@ User *GenreRecommenderUser::copy() {
 GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet) {
 
 }
-
-/*Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
-    Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
-    int i=0;
-    for (const auto &tag : history[history.size()-1]->getTags()) {
-        if(std::find(tagCountVector.begin(),tagCountVector.end(),)==tagCountVector.end())
-          tagCountVector.emplace_back(TagCountPair(0,tag));
-        else
-            tagCountVector[i].count++;
-        i=0;
-    }
-    if(!(std::is_sorted(tagCountVector.begin(),tagCountVector.end())))
-        std::sort(tagCountVector.begin(),tagCountVector.end());
-
-
-
-    if(toRecommend== nullptr)
-    {
-
-    }
-
-
-    return toRecommend;
-}*/
