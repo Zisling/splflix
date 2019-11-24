@@ -225,7 +225,7 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
         tagSet.insert(tag);
     }
 
-
+    tagCountVector.reserve(tagSet.size());
 
     for (const auto &tag : tagSet) {
         bool toinsert=true;
