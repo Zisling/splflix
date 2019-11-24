@@ -82,7 +82,7 @@ std::vector<Watchable *> User::get_history() const {
 //User Destructor
 User::~User() {
     for (auto &item : history) {
-        item= nullptr;
+        delete item;
     }
     history.clear();
 }
@@ -100,6 +100,9 @@ void User::PrintHistory() {
     }
 }
 
+void User::setName(const std::string &name) {
+    User::name = name;
+}
 
 
 /***

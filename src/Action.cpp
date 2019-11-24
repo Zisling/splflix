@@ -145,7 +145,18 @@ std::string DeleteUser::toString() const {
  * duplicateUser
  * */
 void DuplicateUser::act(Session &sess) {
-//TODO: need to make it after User copy constructor is made
+    std::string oldName;
+    std::string newName;
+    std::cin>>oldName;
+    std::cin>>newName;
+    if(sess.getUserMap().find(oldName)!=sess.getUserMap().end()){
+        if (sess.getUserMap().find(newName)!=sess.getUserMap().end()){
+            sess.dupuser(oldName,newName);
+            complete();
+        } else{error("Error - user already exist");}
+    } else{
+        error("Error - user doesn't exist");
+    }
 }
 
 std::string DuplicateUser::toString() const {
@@ -228,8 +239,7 @@ std::string Watch::toString() const {
 void Watch::watchById(int id,Session &sess) {
 
     if(id>0 && id<sess.getContent().size()+1){
-//        TODO add copy so yoy insert a copy and not the pointer
-        Watchable* toInsert =sess.getContent()[id-1];
+        Watchable* toInsert =sess.getContent()[id-1]->copy();
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
             Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
@@ -254,7 +264,9 @@ void Watch::watchById(int id,Session &sess) {
         error("this id doesn't exist");
     }
 }
-
+/**
+ * Log
+ * */
 void PrintActionsLog::act(Session &sess) {
     for (const auto &actionsLog : sess.getActionsLog()) {
         std::cout<<actionsLog->toString()<<std::endl;
@@ -271,3 +283,19 @@ std::string PrintActionsLog::toString() const {
 }
 
 
+/**
+ * Exit
+ * */
+
+void Exit::act(Session &sess) {
+    complete();
+}
+
+std::string Exit::toString() const {
+    std::string statusSt;
+    if (getStatus()==PENDING){statusSt="PENDING";}
+    if (getStatus()==COMPLETED){statusSt="COMPLETED";}
+    if (getStatus()==ERROR){statusSt="ERROR";
+        return "Exit "+statusSt+" "+getErrorMsg();}
+    return "Exit "+statusSt;
+}

@@ -47,10 +47,12 @@ public:
 //    copy function;
     virtual  User* copy()=0;
 
+    void setName(const std::string &name);
+
 protected:
     std::vector<Watchable*> history;
 private:
-    const std::string name;
+    std::string name;
 };
 
 

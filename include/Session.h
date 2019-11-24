@@ -34,7 +34,7 @@ public:
     void insertNewUser(User *toInsert, std::string &name);
     void changeActiveUser(std::string &name);
     void deleteUser(std::string &name);
-    void dupuser(std::string &name);
+    void dupuser(std::string &oldName, std::string &newName);
     void act(BaseAction *action);
 
 

@@ -69,20 +69,12 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     }
 //Session Copy Constructor
 //TODO:
-Session::Session(const Session &otherSess)
-{
-//    TODO use copy and not a cast
+Session::Session(const Session &otherSess){
 this->content.reserve(otherSess.content.size());
     for (const auto &otherContent : otherSess.content) {
-        if (dynamic_cast<Movie*>(otherContent)!= nullptr){
-            Movie *toEmplace=new Movie(*dynamic_cast<Movie*>(otherContent));
+            Watchable *toEmplace=otherContent->copy();
             this->content.emplace_back(toEmplace);}
-        else if (dynamic_cast<Episode*>(otherContent)!= nullptr){
-            Episode *toEmplace=new Episode(*dynamic_cast<Episode*>(otherContent));
-            this->content.emplace_back(toEmplace);
         }
-    }
-}
 
 
 //Session Destructor
@@ -102,6 +94,7 @@ Session::~Session() {
 //Starts SPLFLIX and handles inputs
 //TODO add exit, use duplicte
 void Session::start() {
+
     std::cout << "SPLFLIX is now on!"  << std::endl;
     std::string userCommand;
     while (userCommand!="exit"){
@@ -114,6 +107,7 @@ void Session::start() {
         else if (userCommand=="watchhist"){act(new PrintWatchHistory());}
         else if (userCommand=="watch"){act(new Watch());}
         else if (userCommand=="log"){act(new PrintActionsLog());}
+        else if (userCommand=="exit"){act(new Exit());}
         }
 
         }
@@ -155,8 +149,10 @@ void Session::deleteUser(std::string &name) {
     delete a;
 }
 
-void Session::dupuser(std::string &name) {
-//TODO: affter copy constructor
+void Session::dupuser(std::string &oldName, std::string &newName) {
+    User* toInsert = userMap[oldName]->copy();
+    toInsert->setName(newName);
+    userMap[newName]=toInsert;
 }
 
 
