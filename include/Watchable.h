@@ -29,7 +29,8 @@ public:
     //Destructor
     virtual ~Watchable();
 
-
+    //copy
+    virtual Watchable* copy();
 
     //Getters
     const long getId() const;
@@ -80,6 +81,9 @@ public:
     virtual Watchable* getNextWatchable(Session&) const;
     virtual std::string getName() const override ;
 
+    //copy
+    virtual Watchable* copy();
+
 private:
     std::string name;
 };
@@ -107,6 +111,9 @@ public:
     //Move Assignment Operator
     Episode&operator=(Episode &&other);
 
+    //copy
+    virtual Watchable* copy();
+
     //Methods
     virtual std::string toString() const;
     virtual Watchable* getNextWatchable(Session&) const;
@@ -116,6 +123,7 @@ private:
     std::string seriesName;
     int season;
     int episode;
+//    @TODO need to be in constructor
     long nextEpisodeId;
 };
 

@@ -5,6 +5,8 @@
 #include "iostream"
 #include "include/Session.h"
 
+/*TODO:
+ * add copy to all*/
 /***
  *              Watchable
  ***/

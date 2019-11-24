@@ -11,6 +11,7 @@ using json = nlohmann::json;
 
 //Session Constructor
 Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),activeUser(nullptr) {
+//    TODO add a function so it will look better
 //    id counter
     int count = 1;
 //    init of json read file
@@ -70,6 +71,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
 //TODO:
 Session::Session(const Session &otherSess)
 {
+//    TODO use copy and not a cast
 this->content.reserve(otherSess.content.size());
     for (const auto &otherContent : otherSess.content) {
         if (dynamic_cast<Movie*>(otherContent)!= nullptr){
@@ -98,6 +100,7 @@ Session::~Session() {
 }
 
 //Starts SPLFLIX and handles inputs
+//TODO add exit, use duplicte
 void Session::start() {
     std::cout << "SPLFLIX is now on!"  << std::endl;
     std::string userCommand;

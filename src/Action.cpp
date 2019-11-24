@@ -228,6 +228,7 @@ std::string Watch::toString() const {
 void Watch::watchById(int id,Session &sess) {
 
     if(id>0 && id<sess.getContent().size()+1){
+//        TODO add copy so yoy insert a copy and not the pointer
         Watchable* toInsert =sess.getContent()[id-1];
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;

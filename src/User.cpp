@@ -7,7 +7,12 @@
 
 
 
-
+/*
+ * TODO
+ * add five to all
+ * add copy and steal to all
+ * clean all comments
+ * */
 
 /*TagCountPair::TagCountPair(int count, std::string string) {
     this->count=count;
@@ -171,7 +176,6 @@ RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &other):Us
  *
  */
 
-
 GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet() {
 }
 
@@ -220,7 +224,7 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
 User *GenreRecommenderUser::copy() {
     return new GenreRecommenderUser(*this);
 }
-
+//@TODO need a fix to the vectors
 GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet) {
 }
 
