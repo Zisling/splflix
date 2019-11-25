@@ -17,12 +17,16 @@ public:
 //  Copy Constructor
     Session(const Session&);
 //  Move Constructor
-    Session(Session&&);
+    //Session(Session&&);
+//  Copy Assignment operator
+    Session&operator==(Session&);
+//  Move Assignment operator
+
 
 
     ~Session();
     void start();
-
+    Session* copy(const Session &);
     const std::vector<Watchable *> &getContent() const;
 
     const std::vector<BaseAction *> &getActionsLog() const;

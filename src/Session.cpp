@@ -72,19 +72,36 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
 //Session Copy Constructor
 //TODO:
 Session::Session(const Session &otherSess){
-this->content.reserve(otherSess.content.size());
+    if(this!=&otherSess)
+    {
+        copy(otherSess);
+    }
+}
+
+//Session copy Assignment operator
+Session &Session::operator==(Session &otherSess) {
+    if(this!=&otherSess)
+    {
+        delete this;
+        copy(otherSess);
+    }
+    return *this;
+}
+//Copy helper function
+Session *Session::copy(const Session &otherSess) {
+    this->content.reserve(otherSess.content.size());
     for (const auto &otherContent : otherSess.content) {
-            Watchable *toEmplace=otherContent->copy();
-            this->content.emplace_back(toEmplace);}
+        Watchable *toEmplace=otherContent->copy();
+        this->content.emplace_back(toEmplace);}
+    this->actionsLog.reserve(otherSess.actionsLog.size());
     for (const auto &item : otherSess.actionsLog) {
         actionsLog.emplace_back(item->copy());
     }
     for (const auto &map : otherSess.userMap) {
         userMap[map.first]=map.second->copy();
     }
-    activeUser=userMap[activeUser->getName()];
-        }
-
+    activeUser=userMap[otherSess.activeUser->getName()];
+}
 
 //Session Destructor
 Session::~Session() {
