@@ -18,7 +18,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     std::ifstream f(configFilePath);
     json myJson;
     f >> myJson;
-    std::vector<std::string> *tags= new std::vector<std::string>;
+    auto *tags= new std::vector<std::string>;
     tags->reserve(10);
 //    loop on the type of content
     for (const auto &item : myJson.items()) {
@@ -43,7 +43,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
             for (const auto &value : item.value()) {
                 std::string name= value["name"];
                 int episode_length = value["episode_length"];
-                std::vector<int> *seasons= new  std::vector<int>;
+                auto*seasons= new  std::vector<int>;
                 seasons->reserve(20);
 //                crate tags vector
                 for (const auto &item1 : value["tags"]) {
@@ -54,7 +54,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
                     seasons->push_back(item1);
                 }
 //                crate the obj and push to content
-                for (int i = 1; i < seasons->size()+1; ++i) {
+                for (unsigned long i = 1; i < seasons->size()+1; ++i) {
                     for (int j = 1; j < seasons->at(i-1)+1; ++j) {
                         content.push_back(new Episode(count,name,episode_length,i,j,*tags));
                         count++;
@@ -69,15 +69,14 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     delete tags;
 
     }
+//    copy constructor
 Session::Session(const Session &otherSess){
-    if(this!=&otherSess)
-    {
-        copy(otherSess);
-    }
+    activeUser= nullptr;
+    copy(otherSess);
 }
 
 //Session copy Assignment operator
-Session &Session::operator=(Session &otherSess) {
+Session &Session::operator=(const Session &otherSess) {
     if(this!=&otherSess)
     {
         this->clear();
@@ -101,16 +100,32 @@ Session *Session::copy(const Session &otherSess) {
     return this;
 }
 //move constructor
-Session::Session(Session &&other):content(std::move(other.content)),actionsLog(std::move(other.actionsLog)),userMap(std::move(other.userMap)),activeUser(other.activeUser) {
-    other.activeUser= nullptr;
+Session::Session(Session &&other){
+    if(this!=&other){
+        activeUser= nullptr;
+        this->steal((other));}
+}
+//move operator
+Session &Session::operator=(Session &&other) {
+    if(this!=&other){
+    this->clear();
+    steal(other);}
+    return *this;
+}
+
+Session *Session::steal(Session &other) {
+    content=std::move(other.content);
+    actionsLog=std::move(other.actionsLog);
+    userMap=std::move(other.userMap);
+    std::swap(activeUser,other.activeUser);
     other.clear();
+    return this;
 }
 
 //Session Destructor
 Session::~Session() {
    this->clear();
 }
-
 
 //Starts SPLFLIX and handles inputs
 void Session::start() {

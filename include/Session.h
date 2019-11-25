@@ -19,12 +19,14 @@ public:
 //  Move Constructor
     Session(Session &&other);
 //  Copy Assignment operator
-    Session&operator=(Session&);
+    Session&operator=(const Session&);
 //  Move Assignment operator
+    Session&operator=(Session&& other);
 
-//clear
-void clear();
-
+    //clear
+    void clear();
+//steal
+    Session* steal(Session &otherSess);
 
     ~Session();
     void start();

@@ -36,7 +36,7 @@ int main() {
 //    for(int i=0;i<9999;i++)
     y=sess9;
     Session a=std::move(sess9);
-
+    y=std::move(a);
 
 
 
