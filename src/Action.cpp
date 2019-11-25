@@ -301,3 +301,39 @@ std::string Exit::toString() const {
         return "Exit "+statusSt+" "+getErrorMsg();}
     return "Exit "+statusSt;
 }
+//copy for all actions
+BaseAction *CreateUser::copy() {
+    return new CreateUser(*this);
+}
+
+BaseAction *ChangeActiveUser::copy() {
+    return new ChangeActiveUser(*this);
+}
+
+BaseAction *DeleteUser::copy() {
+    return new DeleteUser(*this);
+}
+
+BaseAction *DuplicateUser::copy() {
+    return new DuplicateUser(*this);
+}
+
+BaseAction *PrintContentList::copy() {
+    return new PrintContentList(*this);
+}
+
+BaseAction *PrintWatchHistory::copy() {
+    return new PrintWatchHistory(*this);
+}
+
+BaseAction *Watch::copy() {
+    return new Watch(*this);
+}
+
+BaseAction *PrintActionsLog::copy() {
+    return new PrintActionsLog(*this);
+}
+
+BaseAction *Exit::copy() {
+    return new Exit(*this);
+}

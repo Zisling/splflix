@@ -62,7 +62,7 @@ User::User(const std::string &name)
 User::User(const User &other)
 :name(other.name) {
     for (const auto &item : other.history) {
-        this->history.push_back(item);
+        this->history.push_back(item->copy());
     }
 }
 

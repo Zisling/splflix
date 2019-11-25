@@ -16,22 +16,23 @@ int main() {
     start = std::clock();
 
 
-    std::vector<std::string> *b = new std::vector<std::string>;
+//    std::vector<std::string> *b = new std::vector<std::string>;
 
-    b->push_back("asd");
-    b->push_back("ebebjssdf");
-    Watchable *ter = new Movie(56, "Drac", 56, *b);
-    Watchable *TERERR = new Movie(99, "LOL", 77, *b);
-    Watchable *lala=new Movie(99,"LOL",77,*b);
-    Watchable *tam=new Episode(12,"wtf",12,12,13,*b);
-    Watchable *toto=new Episode(12,"wtf",12,12,13,*b);
+//    b->push_back("asd");
+//    b->push_back("ebebjssdf");
+//    Watchable *ter = new Movie(56, "Drac", 56, *b);
+//    Watchable *TERERR = new Movie(99, "LOL", 77, *b);
+//    Watchable *lala=new Movie(99,"LOL",77,*b);
+//    Watchable *tam=new Episode(12,"wtf",12,12,13,*b);
+//    Watchable *toto=new Episode(12,"wtf",12,12,13,*b);
 //    *TERERR=std::move(*lala);
 //    *toto=std::move(*tam);
-    *TERERR = *tam;
-    Watchable *re =TERERR->steal();
+//    *TERERR = *tam;
+//    Watchable *re =TERERR->steal();
 
-    Session s("/home/nir/CLionProjects/splflix/config2.json");
+    Session s("/home/zisling/CLionProjects/splflix/config2.json");
     s.start();
+Session r = Session(s);
     duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
 
 
