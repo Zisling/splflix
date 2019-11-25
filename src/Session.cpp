@@ -79,11 +79,11 @@ Session::Session(const Session &otherSess){
 }
 
 //Session copy Assignment operator
-Session &Session::operator==(Session &otherSess) {
+Session &Session::operator=(Session &otherSess) {
     if(this!=&otherSess)
     {
-        delete this;
-        copy(otherSess);
+        this->clear();
+        this->copy(otherSess);
     }
     return *this;
 }
@@ -91,8 +91,7 @@ Session &Session::operator==(Session &otherSess) {
 Session *Session::copy(const Session &otherSess) {
     this->content.reserve(otherSess.content.size());
     for (const auto &otherContent : otherSess.content) {
-        Watchable *toEmplace=otherContent->copy();
-        this->content.emplace_back(toEmplace);}
+        this->content.emplace_back(otherContent->copy());}
     this->actionsLog.reserve(otherSess.actionsLog.size());
     for (const auto &item : otherSess.actionsLog) {
         actionsLog.emplace_back(item->copy());
@@ -101,20 +100,12 @@ Session *Session::copy(const Session &otherSess) {
         userMap[map.first]=map.second->copy();
     }
     activeUser=userMap[otherSess.activeUser->getName()];
+    return this;
 }
 
 //Session Destructor
 Session::~Session() {
-    activeUser= nullptr;
-    for (const auto &item : content) {
-        delete item;
-    }
-    for (const auto &item1 : actionsLog) {
-        delete item1;
-    }
-    for (const auto &item3 : userMap) {
-        delete item3.second;
-    }
+   this->clear();
 }
 
 //Starts SPLFLIX and handles inputs
@@ -184,6 +175,24 @@ void Session::dupuser(std::string &oldName, std::string &newName) {
     User* toInsert = userMap[oldName]->copy();
     toInsert->setName(newName);
     userMap[newName]=toInsert;
+}
+
+void Session::clear() {
+    {
+        activeUser= nullptr;
+        for (const auto &item : content) {
+            delete item;
+        }
+        content.clear();
+        for (const auto &item1 : actionsLog) {
+            delete item1;
+        }
+        actionsLog.clear();
+        for (const auto &item3 : userMap) {
+            delete item3.second;
+        }
+        actionsLog.clear();
+}
 }
 
 

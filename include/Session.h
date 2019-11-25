@@ -19,9 +19,11 @@ public:
 //  Move Constructor
     //Session(Session&&);
 //  Copy Assignment operator
-    Session&operator==(Session&);
+    Session&operator=(Session&);
 //  Move Assignment operator
 
+//clear
+void clear();
 
 
     ~Session();
