@@ -82,6 +82,7 @@ this->content.reserve(otherSess.content.size());
     for (const auto &map : otherSess.userMap) {
         userMap[map.first]=map.second->copy();
     }
+    activeUser=userMap[activeUser->getName()];
         }
 
 
