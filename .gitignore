@@ -1,2 +1,8 @@
 # Project exclude paths
 /cmake-build-debug/
+/bin/Action.o
+/bin/Main.o
+/bin/Session.o
+/bin/splflix
+/bin/User.o
+/bin/Watchable.o

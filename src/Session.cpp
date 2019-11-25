@@ -1,8 +1,7 @@
-#include "include/json.hpp"
-#include "include/Session.h"
+#include "../include/Session.h"
 #include <iostream>
 #include <fstream>
-#include <include/Watchable.h>
+#include "../include/Watchable.h"
 
 using json = nlohmann::json;
 
@@ -172,7 +171,6 @@ User *Session::getActiveUser() const {
 void Session::act(BaseAction *action) {
     action->act(*this);
     actionsLog.push_back(action);
-    std::cout <<action->toString() << std::endl;
 }
 
 void Session::insertNewUser(User *toInsert, std::string &name) {

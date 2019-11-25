@@ -1,6 +1,6 @@
-#include "include/Action.h"
-#include "include/User.h"
-#include "include/Session.h"
+#include "../include/Action.h"
+#include "../include/User.h"
+#include "../include/Session.h"
 
 /***
  * BaseAction
@@ -202,6 +202,7 @@ std::string PrintContentList::toString() const {
  * PrintWathchHistory
  ***/
 void PrintWatchHistory::act(Session &sess) {
+    std::cout <<"Watch history for " << sess.getActiveUser()->getName()<<std::endl;
     sess.getActiveUser()->PrintHistory();
     complete();
 }
@@ -211,8 +212,8 @@ std::string PrintWatchHistory::toString() const {
     if (getStatus()==PENDING){statusSt="PENDING";}
     if (getStatus()==COMPLETED){statusSt="COMPLETED";}
     if (getStatus()==ERROR){statusSt="ERROR";
-        return "PrintWathchHistory "+statusSt+" "+getErrorMsg();}
-    return "PrintWathchHistory "+statusSt;
+        return "PrintWatchHistory "+statusSt+" "+getErrorMsg();}
+    return "PrintWatchHistory "+statusSt;
 }
 
 

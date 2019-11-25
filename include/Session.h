@@ -4,12 +4,14 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-#include "include/Action.h"
+#include "../include/Action.h"
+#include "../include/json.hpp"
+
 
 class User;
 class Watchable;
-#include "include/User.h"
-#include "include/Watchable.h"
+#include "../include/User.h"
+#include "../include/Watchable.h"
 class Session{
 public:
 //  Constructor

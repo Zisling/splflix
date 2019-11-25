@@ -1,9 +1,9 @@
 //
 // Created by zisling on 17/11/2019.
 //
-#include "include/Watchable.h"
-#include "iostream"
-#include "include/Session.h"
+#include "../include/Watchable.h"
+#include <iostream>
+#include "../include/Session.h"
 
 /***
  *              Watchable
