@@ -19,6 +19,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     json myJson;
     f >> myJson;
     std::vector<std::string> *tags= new std::vector<std::string>;
+    tags->reserve(10);
 //    loop on the type of content
     for (const auto &item : myJson.items()) {
 //        crate movie obj and push into content
@@ -43,6 +44,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
                 std::string name= value["name"];
                 int episode_length = value["episode_length"];
                 std::vector<int> *seasons= new  std::vector<int>;
+                seasons->reserve(20);
 //                crate tags vector
                 for (const auto &item1 : value["tags"]) {
                     tags->push_back(item1);
