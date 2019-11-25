@@ -150,7 +150,7 @@ void DuplicateUser::act(Session &sess) {
     std::cin>>oldName;
     std::cin>>newName;
     if(sess.getUserMap().find(oldName)!=sess.getUserMap().end()){
-        if (sess.getUserMap().find(newName)!=sess.getUserMap().end()){
+        if (sess.getUserMap().find(newName)==sess.getUserMap().end()){
             sess.dupuser(oldName,newName);
             complete();
         } else{error("Error - user already exist");}
@@ -267,10 +267,12 @@ void Watch::watchById(int id,Session &sess) {
 /**
  * Log
  * */
+//TODO fix printing of act
 void PrintActionsLog::act(Session &sess) {
     for (const auto &actionsLog : sess.getActionsLog()) {
         std::cout<<actionsLog->toString()<<std::endl;
     }
+    complete();
 }
 
 std::string PrintActionsLog::toString() const {

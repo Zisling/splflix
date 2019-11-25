@@ -153,7 +153,13 @@ Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
         std::unordered_set<Watchable*> search_set(history.begin(),history.end());
         double minLen = std::numeric_limits<double>::max();
         for (const auto &item : s.getContent()) {
-            if (std::abs(avg-(double)(item->getLength()))<minLen && search_set.find(item)==search_set.end()){
+            bool in_History = false;
+            for (int j = 0; j < history.size()&&!in_History; ++j) {
+                if (item->toString()==history[j]->toString()){
+                    in_History= true;
+                }
+            }
+            if (std::abs(avg-(double)(item->getLength()))<minLen && !in_History){
             minLen=std::abs(avg-item->getLength());
             toRecommend=item;
             }
