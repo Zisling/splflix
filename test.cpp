@@ -16,25 +16,26 @@ int main() {
     start = std::clock();
 
 
-    std::vector<std::string> *b = new std::vector<std::string>;
-
-    b->push_back("asd");
-    b->push_back("ebebjssdf");
-    Watchable *ter = new Movie(56, "Drac", 56, *b);
-    Watchable *TERERR = new Movie(99, "LOL", 77, *b);
-    Watchable *lala=new Movie(99,"LOL",77,*b);
-    Watchable *tam=new Episode(12,"wtf",12,12,13,*b);
-    Watchable *toto=new Episode(12,"wtf",12,12,13,*b);
+//    std::vector<std::string> *b = new std::vector<std::string>;
+//
+//    b->push_back("asd");
+//    b->push_back("ebebjssdf");
+//    Watchable *ter = new Movie(56, "Drac", 56, *b);
+//    Watchable *TERERR = new Movie(99, "LOL", 77, *b);
+//    Watchable *lala=new Movie(99,"LOL",77,*b);
+//    Watchable *tam=new Episode(12,"wtf",12,12,13,*b);
+//    Watchable *toto=new Episode(12,"wtf",12,12,13,*b);
 //    *TERERR=std::move(*lala);
 //    *toto=std::move(*tam);
-    *TERERR = *tam;
-    Watchable *re =TERERR->steal();
+//    *TERERR = *tam;
+//    Watchable *re =TERERR->steal();
 
-    Session sess9("/home/nir/CLionProjects/splflix/config1.json");
+    Session sess9("/home/zisling/CLionProjects/splflix/config1.json");
     sess9.start();
     Session y=Session(sess9);
-    for(int i=0;i<99;i++)
-    y=Session(sess9);
+//    for(int i=0;i<9999;i++)
+    y=sess9;
+    Session a=std::move(sess9);
 
 
 

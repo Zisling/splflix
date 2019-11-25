@@ -69,8 +69,6 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     delete tags;
 
     }
-//Session Copy Constructor
-//TODO:
 Session::Session(const Session &otherSess){
     if(this!=&otherSess)
     {
@@ -102,11 +100,17 @@ Session *Session::copy(const Session &otherSess) {
     activeUser=userMap[otherSess.activeUser->getName()];
     return this;
 }
+//move constructor
+Session::Session(Session &&other):content(std::move(other.content)),actionsLog(std::move(other.actionsLog)),userMap(std::move(other.userMap)),activeUser(other.activeUser) {
+    other.activeUser= nullptr;
+    other.clear();
+}
 
 //Session Destructor
 Session::~Session() {
    this->clear();
 }
+
 
 //Starts SPLFLIX and handles inputs
 void Session::start() {
@@ -133,7 +137,6 @@ void Session::start() {
         }
 
         }
-
 
 const std::vector<Watchable *> &Session::getContent() const {
     return content;

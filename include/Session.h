@@ -17,7 +17,7 @@ public:
 //  Copy Constructor
     Session(const Session&);
 //  Move Constructor
-    //Session(Session&&);
+    Session(Session &&other);
 //  Copy Assignment operator
     Session&operator=(Session&);
 //  Move Assignment operator
