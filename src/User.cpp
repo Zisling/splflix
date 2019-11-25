@@ -8,9 +8,8 @@
 
 
 /*
- * TODO
+ * TODO:
  * add five to all
- * add copy and steal to all
  * clean all comments
  * */
 
@@ -150,7 +149,6 @@ Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
     double i = history.size();
     avg = ((avg * (i - 1)) / i) + ((double) (history[history.size() - 1]->getLength()) / i);
     if (toRecommend == nullptr){
-        std::unordered_set<Watchable*> search_set(history.begin(),history.end());
         double minLen = std::numeric_limits<double>::max();
         for (const auto &item : s.getContent()) {
             bool in_History = false;
@@ -164,7 +162,6 @@ Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
             toRecommend=item;
             }
         }
-        search_set.clear();
     }
     return toRecommend;
 }
@@ -215,7 +212,6 @@ GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name)
 
 }
 
-//Todo: search for user most popular tag, with a Tag set to the genreMap
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
     for (const auto &item : s.getContent()) {

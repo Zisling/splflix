@@ -18,6 +18,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
     std::ifstream f(configFilePath);
     json myJson;
     f >> myJson;
+    std::vector<std::string> *tags= new std::vector<std::string>;
 //    loop on the type of content
     for (const auto &item : myJson.items()) {
 //        crate movie obj and push into content
@@ -26,7 +27,6 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
                 std::string name= value["name"];
                 int length = value["length"];
 //                crate a vector for the tags
-                std::vector<std::string> *tags= new std::vector<std::string>;
                 for (const auto &item1 : value["tags"]) {
                     tags->push_back(item1);
                 }
@@ -34,7 +34,7 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
                 Watchable *toPush =new Movie(count,name,length,*tags);
                 content.push_back((toPush));
                 count++;
-                delete tags;
+                tags->clear();
             }
             }
 //        crate episode obj
@@ -43,7 +43,6 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
                 std::string name= value["name"];
                 int episode_length = value["episode_length"];
                 std::vector<int> *seasons= new  std::vector<int>;
-                std::vector<std::string> *tags= new std::vector<std::string>;
 //                crate tags vector
                 for (const auto &item1 : value["tags"]) {
                     tags->push_back(item1);
@@ -60,11 +59,12 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
                     }
                 }
                 delete seasons;
-                delete tags;
+                tags->clear();
             }
         }
 
         }
+    delete tags;
 
     }
 //Session Copy Constructor
