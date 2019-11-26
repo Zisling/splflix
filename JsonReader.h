@@ -6,7 +6,7 @@
 #define SPLFLIX_JSONREADER_H
 
 #include <iostream>
-#include "include/json.hpp"
+#include "../include/json.hpp"
 #include <fstream>
 using json = nlohmann::json;
 

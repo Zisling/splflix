@@ -43,10 +43,10 @@ public:
     User(User&& other);
 
     //User Copy Assignment Operator
-    virtual User&operator=(User&);
+    User&operator=(const User&);
 
     //User Move Assignment Operator
-    virtual User&operator=(User&&);
+    User&operator=(User&&);
 
 
     virtual Watchable* getRecommendation(Session& s) = 0;

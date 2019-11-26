@@ -76,7 +76,7 @@ User::User(User &&other)
 }
 
 //User Copy Assignment Operator
-User &User::operator=(User &other) {
+User &User::operator=(const User &other) {
     if(this!=&other)
     {
         this->history.clear();
@@ -143,6 +143,8 @@ void User::setName(const std::string &name) {
 
 LengthRecommenderUser::LengthRecommenderUser(const std::string &name) : User(name) ,avg(0){
 }
+
+
 
 Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
     Watchable *toRecommend = history[history.size() - 1]->getNextWatchable(s);
