@@ -268,7 +268,6 @@ void Watch::watchById(int id,Session &sess) {
 /**
  * Log
  * */
-//TODO fix printing of act
 void PrintActionsLog::act(Session &sess) {
     for (const auto &actionsLog : sess.getActionsLog()) {
         std::cout<<actionsLog->toString()<<std::endl;
