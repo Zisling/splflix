@@ -16,16 +16,14 @@ add_executable(splflix
         include/User.h
         include/Watchable.h src/Action.cpp src/Session.cpp src/User.cpp src/Watchable.cpp)
 
-#add_executable(test test.cpp
-#        include/json.hpp
-#        JsonReader.cpp
-#        JsonReader.h
-#        include/Watchable.h
-#        src/Watchable.cpp
-#        include/Session.h
-#        src/Session.cpp
-#        include/Action.h
-#        src/Action.cpp
-#        include/User.h
-#        src/User.cpp
-#        )
+add_executable(test test.cpp
+        include/json.hpp
+        include/Watchable.h
+        src/Watchable.cpp
+        include/Session.h
+        src/Session.cpp
+        include/Action.h
+        src/Action.cpp
+        include/User.h
+        src/User.cpp
+        )

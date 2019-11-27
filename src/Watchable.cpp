@@ -171,7 +171,7 @@ Watchable *Movie::steal() {
 
 //Constructors
 Episode::Episode(long id, const std::string& seriesName,int length, int season, int episode ,const std::vector<std::string>& tags)
-                 :Watchable(id,length,tags),seriesName(seriesName),season(season),episode(episode),nextEpisodeId(0) {
+                 :Watchable(id,length,tags),seriesName(seriesName),season(season),episode(episode),nextEpisodeId(-1) {
 }
 
 //Copy Constructor
@@ -249,4 +249,8 @@ Watchable *Episode::copy() {
 
 Watchable *Episode::steal() {
     return new Episode(std::move(*this));
+}
+
+void Episode::setNextEpisodeId(long nextEpisode) {
+   nextEpisodeId = nextEpisode;
 }

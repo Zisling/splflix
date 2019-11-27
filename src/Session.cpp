@@ -55,7 +55,10 @@ Session::Session(const std::string &configFilePath):userMap() ,actionsLog(),acti
 //                crate the obj and push to content
                 for (unsigned long i = 1; i < seasons->size()+1; ++i) {
                     for (int j = 1; j < seasons->at(i-1)+1; ++j) {
-                        content.push_back(new Episode(count,name,episode_length,i,j,*tags));
+                        auto *toPush = new Episode(count,name,episode_length,i,j,*tags);
+                        if(j!=seasons->at(i-1)||i!=seasons->size()){
+                        toPush->setNextEpisodeId(count+1);}
+                        content.push_back(toPush);
                         count++;
                     }
                 }

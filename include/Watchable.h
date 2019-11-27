@@ -124,13 +124,14 @@ public:
     virtual Watchable* getNextWatchable(Session&) const;
     virtual std::string getName() const override ;
 
+    void setNextEpisodeId(long nextEpisode);
+
     Watchable *steal() override;
 
 private:
     std::string seriesName;
     int season;
     int episode;
-//    @TODO need to be in constructor
     long nextEpisodeId;
 };
 
