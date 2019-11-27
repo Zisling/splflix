@@ -7,11 +7,9 @@
 
 
 
-/*
- * TODO:
- * add five to all
- * clean all comments
- * */
+// TODO:
+//  - add the five to gen user
+//  -  clean getRecommendation i episode have now next episode index added
 
 
 
@@ -221,6 +219,26 @@ User *RerunRecommenderUser::copy() {
 RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &other):User(other), Index(other.Index){
 }
 
+RerunRecommenderUser::RerunRecommenderUser(RerunRecommenderUser &&other):User(std::move(other)),Index((other.Index)) {
+other.Index=0;
+}
+
+RerunRecommenderUser &RerunRecommenderUser::operator=(const RerunRecommenderUser &other) {
+    if (this!=&other){
+        User::operator=(other);
+        Index=other.Index;
+    }
+    return *this;
+}
+
+RerunRecommenderUser &RerunRecommenderUser::operator=(RerunRecommenderUser && other) {
+    if (this!=&other){
+        Index=other.Index;
+        User::operator=(std::move(other));
+    }
+    return *this;
+}
+
 
 /**
  *
@@ -228,11 +246,11 @@ RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &other):Us
  *
  *
  */
-
+//TODO we can make it with out the map
 GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet(),tagCountVector() {
 
 }
-
+//TODO please clean this function
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
     for (const auto &item : s.getContent()) {

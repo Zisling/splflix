@@ -226,6 +226,7 @@ std::string Episode::getName() const {
 }
 
 //Episode getNextWatchable function
+//TODO you can use the nextEpisodeIndex now check if it work (if there is no next episode nextEpisodeIndex = -1)
 Watchable *Episode::getNextWatchable(Session &s) const {
     if(s.getContent().size()>this->getId()) {
         std::string toCheck = s.getContent()[this->getId()]->getName();

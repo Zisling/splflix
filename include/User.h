@@ -93,7 +93,14 @@ public:
     RerunRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
     virtual  User* copy();
+//    copy constructor
     RerunRecommenderUser(const RerunRecommenderUser& other);
+//    move constructor
+    RerunRecommenderUser(RerunRecommenderUser&& other);
+//    copy assigment
+    RerunRecommenderUser&operator=(const RerunRecommenderUser&other);
+//    move assigment
+    RerunRecommenderUser&operator=(RerunRecommenderUser&&);
 private:
     unsigned long Index;
 };
