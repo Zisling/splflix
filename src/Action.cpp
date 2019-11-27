@@ -5,7 +5,7 @@
 /***
  * BaseAction
  * */
-BaseAction::BaseAction():status(PENDING),errorMsg("") {
+BaseAction::BaseAction():errorMsg(""),status(PENDING) {
 
 }
 
@@ -28,7 +28,7 @@ std::string BaseAction::getErrorMsg() const {
     return errorMsg;
 }
 
-BaseAction::BaseAction(const BaseAction &other):status(other.status),errorMsg(other.errorMsg) {}
+BaseAction::BaseAction(const BaseAction &other):errorMsg(other.errorMsg) ,status(other.status){}
 
 BaseAction &BaseAction::operator=(const BaseAction &other) {
     status=other.status;
@@ -36,7 +36,7 @@ BaseAction &BaseAction::operator=(const BaseAction &other) {
     return *this;
 }
 
-BaseAction::BaseAction(BaseAction &&other):status(other.status),errorMsg(std::move(other.errorMsg)) {
+BaseAction::BaseAction(BaseAction &&other):errorMsg(std::move(other.errorMsg)),status(other.status) {
     other.status=PENDING;
 }
 
