@@ -15,9 +15,9 @@
 
 
 
-
 tagCountPair::tagCountPair(int count, std::string tag) {
     m_count=count;
+//    TODO: look if you can use move here -to nir
     m_tag=tag;
 }
 
@@ -269,7 +269,7 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
         //for each watchable in content, checks if watchable has the popular tag, and checks if the watchable is already in the user watch history
         bool inHistory = true;
         for (int i = 0; i <tagCountVector.size()&toRecommend== nullptr&inHistory ; ++i) {
-            for (int k = 0 ; k<s.getContent().size()&inHistory; ++k) {
+            for (int k = 0 ;inHistory && k<s.getContent().size() ; ++k) {
                 const auto content = s.getContent()[k];
                 for (const auto &item : content->getTags()) {
                     if (tagCountVector[i].getTag()==item){
