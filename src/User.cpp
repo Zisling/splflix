@@ -175,6 +175,10 @@ User *LengthRecommenderUser::copy() {
 LengthRecommenderUser::LengthRecommenderUser(const LengthRecommenderUser &other):User(other),avg(other.avg) {
 }
 
+LengthRecommenderUser::LengthRecommenderUser(LengthRecommenderUser &&other):User(std::move(other)),avg(other.avg) {
+    other.avg=0;
+}
+
 
 /**
  *

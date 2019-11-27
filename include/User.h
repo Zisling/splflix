@@ -75,7 +75,10 @@ public:
     LengthRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
     virtual  User* copy();
+//    copy constructor
     LengthRecommenderUser(const LengthRecommenderUser& other);
+//    move constructor
+    LengthRecommenderUser(LengthRecommenderUser&& other);
 private:
     double avg;
 
