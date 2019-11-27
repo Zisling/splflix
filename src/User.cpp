@@ -171,12 +171,27 @@ Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
 User *LengthRecommenderUser::copy() {
     return new LengthRecommenderUser(*this);
 }
-
+//copy constructor
 LengthRecommenderUser::LengthRecommenderUser(const LengthRecommenderUser &other):User(other),avg(other.avg) {
 }
-
+//move constructor
 LengthRecommenderUser::LengthRecommenderUser(LengthRecommenderUser &&other):User(std::move(other)),avg(other.avg) {
     other.avg=0;
+}
+//copy operator
+LengthRecommenderUser &LengthRecommenderUser::operator=(const LengthRecommenderUser &other) {
+    if (this!=&other){
+    this->User::operator=(other);
+        avg=other.avg;
+    }
+    return *this;
+}
+//move operator
+LengthRecommenderUser &LengthRecommenderUser::operator=(LengthRecommenderUser && other) {
+    if (this!=&other){
+        avg=other.avg;
+    User::operator=(std::move(other));}
+    return *this;
 }
 
 

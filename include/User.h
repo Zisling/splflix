@@ -79,6 +79,10 @@ public:
     LengthRecommenderUser(const LengthRecommenderUser& other);
 //    move constructor
     LengthRecommenderUser(LengthRecommenderUser&& other);
+//    copy assigment
+    LengthRecommenderUser&operator=(const LengthRecommenderUser&other);
+//    move assigment
+    LengthRecommenderUser&operator=(LengthRecommenderUser&&);
 private:
     double avg;
 
