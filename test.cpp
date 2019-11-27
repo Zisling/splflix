@@ -30,7 +30,7 @@ int main() {
 //    *TERERR = *tam;
 //    Watchable *re =TERERR->steal();
 
-    Session sess9("/home/zisling/CLionProjects/splflix/config1.json");
+    Session sess9("/home/zisling/CLionProjects/splflix/config2.json");
     sess9.start();
     Session y=Session(sess9);
 //    for(int i=0;i<9999;i++)

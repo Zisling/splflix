@@ -103,6 +103,7 @@ Session *Session::copy(const Session &otherSess) {
 //Move constructor
 Session::Session(Session &&other):content(),actionsLog(),userMap() ,activeUser(nullptr){
     if(this!=&other){
+        activeUser= nullptr;
         this->steal((other));}
 }
 //move operator
@@ -147,8 +148,7 @@ void Session::start() {
         else if (userCommand=="watch"){act(new Watch());}
         else if (userCommand=="log"){act(new PrintActionsLog());}
         else if (userCommand=="exit"){act(new Exit());}
-        else{std::cin.clear();
-            std::cout <<"command doesn't exist" << std::endl;}
+        else{std::cout <<"command doesn't exist" << std::endl;}
         }
 
         }
@@ -171,6 +171,9 @@ User *Session::getActiveUser() const {
 
 void Session::act(BaseAction *action) {
     action->act(*this);
+    actionsLog.push_back(action);
+}
+void Session::insertAction(BaseAction *action) {
     actionsLog.push_back(action);
 }
 

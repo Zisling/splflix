@@ -46,13 +46,13 @@ public:
     void deleteUser(std::string &name);
     void dupuser(std::string &oldName, std::string &newName);
     void act(BaseAction *action);
-
+    void insertAction(BaseAction *action);
 
 private:
     std::vector<Watchable*> content;
     std::vector<BaseAction*> actionsLog;
     std::unordered_map<std::string,User*> userMap;
-    User* activeUser;
 
+    User* activeUser;
 };
 #endif

@@ -75,9 +75,9 @@ void CreateUser::act(Session &sess) {
             User *toSend = new GenreRecommenderUser(name);
             sess.insertNewUser(toSend, name);
             complete();
-        } else{error("Error - non existing type");}
+        } else{error("Error - recommendation algorithm is invalid");}
     } else{
-        error("Error - user already exist");
+        error("Error - username is already in use");
     }
 }
 
@@ -237,7 +237,7 @@ std::string Watch::toString() const {
     return "Watch "+statusSt;
 }
 
-void Watch::watchById(int id,Session &sess) {
+void Watch::watchById(unsigned long id,Session &sess) {
 
     if(id>0 && id<sess.getContent().size()+1){
         Watchable* toInsert =sess.getContent()[id-1]->copy();
@@ -248,10 +248,14 @@ void Watch::watchById(int id,Session &sess) {
                 std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] "<< std::endl;
                 std::string userCommand;
                 std::cin >> userCommand;
-                while (userCommand != "n") {
+                bool heContinueToWatch= false;
+                while (userCommand != "n"&&!heContinueToWatch) {
                     if (userCommand == "y") {
+                        auto* action = new Watch();
+                        sess.insertAction(action);
+                        action->complete();
                         watchById(recommend->getId(), sess);
-                        userCommand = "n";
+                        heContinueToWatch = true;
                     } else if (userCommand != "n") {
                         std::cout << "[y/n] input" << std::endl;
                         std::cin >> userCommand;
