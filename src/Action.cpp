@@ -236,7 +236,7 @@ std::string Watch::toString() const {
         return "Watch "+statusSt+" "+getErrorMsg();}
     return "Watch "+statusSt;
 }
-
+//static function to crate action Watch and Watch it;
 Watch* Watch::watchById(unsigned long id,Session &sess) {
     auto* watchAction = new Watch();
     if(id>0 && id<sess.getContent().size()+1){

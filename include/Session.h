@@ -47,7 +47,7 @@ public:
     void dupuser(std::string &oldName, std::string &newName);
     void act(BaseAction *action);
     void watch();
-    void insertAction(BaseAction *action);
+
     static bool toRecommend(Watchable* recommend);
 
 private:

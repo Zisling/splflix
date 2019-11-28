@@ -152,7 +152,7 @@ void Session::start() {
         }
 
         }
-
+// getters
 const std::vector<Watchable *> &Session::getContent() const {
     return content;
 }
@@ -168,12 +168,27 @@ const std::unordered_map<std::string, User *> &Session::getUserMap() const {
 User *Session::getActiveUser() const {
     return activeUser;
 }
+void Session::clear() {
+    {
+        activeUser= nullptr;
+        for (const auto &item : content) {
+            delete item;
+        }
+        content.clear();
+        for (const auto &item1 : actionsLog) {
+            delete item1;
+        }
+        actionsLog.clear();
+        for (const auto &item3 : userMap) {
+            delete item3.second;
+        }
+        actionsLog.clear();
+    }
+}
 
+// act on the actions and push it to the vector/
 void Session::act(BaseAction *action) {
     action->act(*this);
-    actionsLog.push_back(action);
-}
-void Session::insertAction(BaseAction *action) {
     actionsLog.push_back(action);
 }
 
@@ -197,22 +212,17 @@ void Session::dupuser(std::string &oldName, std::string &newName) {
     userMap[newName]=toInsert;
 }
 
-void Session::clear() {
-    {
-        activeUser= nullptr;
-        for (const auto &item : content) {
-            delete item;
-        }
-        content.clear();
-        for (const auto &item1 : actionsLog) {
-            delete item1;
-        }
-        actionsLog.clear();
-        for (const auto &item3 : userMap) {
-            delete item3.second;
-        }
-        actionsLog.clear();
-}
+void Session::watch() {
+    unsigned long id;
+    std::cin>>id;
+    act(Watch::watchById(id,*this));
+    Watchable* recommend = getActiveUser()->getRecommendation(*this);
+    bool Continue =toRecommend(recommend);
+    while (Continue){
+        act(Watch::watchById(recommend->getId(), *this));
+        recommend = getActiveUser()->getRecommendation(*this);
+        Continue =toRecommend(recommend);
+    }
 }
 
 bool Session::toRecommend(Watchable* recommend) {
@@ -233,19 +243,6 @@ bool Session::toRecommend(Watchable* recommend) {
         return false;
     }
     return false;
-}
-
-void Session::watch() {
-    unsigned long id;
-    std::cin>>id;
-    act(Watch::watchById(id,*this));
-    Watchable* recommend = getActiveUser()->getRecommendation(*this);
-    bool Continue =toRecommend(recommend);
-    while (Continue){
-        act(Watch::watchById(recommend->getId(), *this));
-        recommend = getActiveUser()->getRecommendation(*this);
-        Continue =toRecommend(recommend);
-    }
 }
 
 
