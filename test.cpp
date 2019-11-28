@@ -30,13 +30,25 @@ int main() {
 //    *TERERR = *tam;
 //    Watchable *re =TERERR->steal();
 
-    Session sess9("/home/zisling/CLionProjects/splflix/config2.json");
-    sess9.start();
-    Session y=Session(sess9);
+//    Session sess9("/home/zisling/CLionProjects/splflix/config2.json");
+//    sess9.start();
+//    Session y=Session(sess9);
 //    for(int i=0;i<9999;i++)
-    y=sess9;
-    Session a=std::move(sess9);
-    y=std::move(a);
+//    y=sess9;
+//    Session a=std::move(sess9);
+//    y=std::move(a);
+
+    auto *a =new GenreRecommenderUser("hedi");
+    auto *b =new GenreRecommenderUser("zisling");
+    GenreRecommenderUser* c = new GenreRecommenderUser(*a);
+    GenreRecommenderUser* d = new GenreRecommenderUser(std::move(*b));
+    *c = *d;
+    *c =std::move(*a);
+
+    delete a;
+    delete b;
+    delete c;
+    delete d;
 
 
 

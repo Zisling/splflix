@@ -69,6 +69,7 @@ User::User(User &&other)
     for (const auto &item : other.history) {
         this->history.push_back(item);
     }
+    other.name.clear();
     other.history.clear();
 }
 
@@ -76,6 +77,7 @@ User::User(User &&other)
 User &User::operator=(const User &other) {
     if(this!=&other)
     {
+        name=other.name;
         this->history.clear();
         for (const auto &item : other.history) {
             this->history.push_back(item);
@@ -87,11 +89,13 @@ User &User::operator=(const User &other) {
 User &User::operator=(User &&other) {
     if(this!=&other)
     {
+        name=other.name;
         this->history.clear();
         for (const auto &item : other.history) {
             this->history.push_back(item);
         }
         other.history.clear();
+        other.name.clear();
     }
     return *this;
 }
@@ -318,8 +322,30 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
 User *GenreRecommenderUser::copy() {
     return new GenreRecommenderUser(*this);
 }
-//@TODO need a fix to the vectors
 //Genre RecommenderUser Copy Constructor
 GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet),tagCountVector(other.tagCountVector) {
 
+}
+//Genre RecommenderUser Move Constructor
+GenreRecommenderUser::GenreRecommenderUser(GenreRecommenderUser &&other)
+:User(std::move(other)) , genreCounterMap(std::move(other.genreCounterMap)),tagSet(std::move(other.tagSet)),tagCountVector(std::move(other.tagCountVector)) {
+}
+
+GenreRecommenderUser &GenreRecommenderUser::operator=(const GenreRecommenderUser &other) {
+    if (this!=&other){
+        User::operator=(other);
+        genreCounterMap=other.genreCounterMap;
+        tagSet=other.tagSet;
+        tagCountVector=other.tagCountVector;}
+    return *this;
+}
+
+GenreRecommenderUser &GenreRecommenderUser::operator=(GenreRecommenderUser &&other) {
+    if (this!=&other){
+        genreCounterMap=std::move(other.genreCounterMap);
+        tagSet=other.tagSet;
+        tagCountVector=std::move(other.tagCountVector);
+        User::operator=(std::move(other));
+    }
+    return *this;
 }

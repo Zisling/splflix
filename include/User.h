@@ -103,7 +103,14 @@ public:
     GenreRecommenderUser(const std::string& name);
     virtual Watchable* getRecommendation(Session& s);
     virtual  User* copy();
+//    copy constructor
     GenreRecommenderUser(const GenreRecommenderUser& other);
+//    move constructor
+    GenreRecommenderUser(GenreRecommenderUser&& other);
+//    copy assigment
+    GenreRecommenderUser&operator=(const GenreRecommenderUser&other);
+//    move assigment
+    GenreRecommenderUser&operator=(GenreRecommenderUser&& other);
 private:
     std::unordered_map<std::string,int> genreCounterMap;
     std::unordered_set<std::string> tagSet;
