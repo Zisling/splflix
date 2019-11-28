@@ -13,10 +13,9 @@
 
 
 
-tagCountPair::tagCountPair(int count, std::string tag) {
-    m_count=count;
+tagCountPair::tagCountPair(int count, std::string tag):m_count(count),m_tag(tag) {
+
 //    TODO: look if you can use move here -to nir
-    m_tag=tag;
 }
 
 const int tagCountPair::getCount() const {
@@ -53,12 +52,12 @@ bool tagCountPairComprator::operator()(const tagCountPair &tagPair1, const tagCo
 
 //User Contructor
 User::User(const std::string &name)
-:name(name),history() {
+:history(),name(name){
 }
 
 //User Copy Constructor
 User::User(const User &other)
-:name(other.name) {
+:history(),name(other.name) {
     for (const auto &item : other.history) {
         this->history.push_back(item->copy());
     }
@@ -66,7 +65,7 @@ User::User(const User &other)
 
 //User Move Constructor
 User::User(User &&other)
-:name(other.name) {
+:history(),name(other.name) {
     for (const auto &item : other.history) {
         this->history.push_back(item);
     }
@@ -152,7 +151,7 @@ Watchable *LengthRecommenderUser::getRecommendation(Session &s) {
         double minLen = std::numeric_limits<double>::max();
         for (const auto &item : s.getContent()) {
             bool in_History = false;
-            for (int j = 0; j < history.size()&&!in_History; ++j) {
+            for (unsigned int j = 0; j < history.size()&&!in_History; ++j) {
                 if (item->toString()==history[j]->toString()){
                     in_History= true;
                 }
@@ -286,13 +285,13 @@ Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
 
         //for each watchable in content, checks if watchable has the popular tag, and checks if the watchable is already in the user watch history
         bool inHistory = true;
-        for (int i = 0; i <tagCountVector.size()&toRecommend== nullptr&inHistory ; ++i) {
-            for (int k = 0 ;inHistory && k<s.getContent().size() ; ++k) {
+        for (unsigned int i = 0; (i <tagCountVector.size())&(toRecommend== nullptr)&(inHistory) ; ++i) {
+            for (unsigned int k = 0 ;inHistory && k<s.getContent().size() ; ++k) {
                 const auto content = s.getContent()[k];
                 for (const auto &item : content->getTags()) {
                     if (tagCountVector[i].getTag()==item){
                         bool tmp = false;
-                        for (int j = 0; j < history.size()&&!tmp; ++j) {
+                        for (unsigned int j = 0; j < history.size()&&!tmp; ++j) {
                             if (history[j]->toString()==content->toString()){
                                 tmp= true;
                             }}
@@ -320,6 +319,7 @@ User *GenreRecommenderUser::copy() {
     return new GenreRecommenderUser(*this);
 }
 //@TODO need a fix to the vectors
-GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet) {
+//Genre RecommenderUser Copy Constructor
+GenreRecommenderUser::GenreRecommenderUser(const GenreRecommenderUser &other):User(other),genreCounterMap(other.genreCounterMap),tagSet(other.tagSet),tagCountVector(other.tagCountVector) {
 
 }

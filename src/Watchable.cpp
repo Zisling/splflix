@@ -12,12 +12,12 @@
 
 //Watchable Constructor
 Watchable::Watchable(long id, int length, const std::vector<std::string> &tags)
-:id(id),length(length){
+:id(id),length(length),tags(){
 this->tags=tags;
 }
 //Watchable Copy Constructor
 Watchable::Watchable(const Watchable &other)
-:id(other.id),length(other.length) {
+:id(other.id),length(other.length),tags() {
 
     for(const auto & item : other.tags)
     {
@@ -27,7 +27,7 @@ Watchable::Watchable(const Watchable &other)
 }
 //Watchable Move Constructor
 Watchable::Watchable(Watchable &&other)
-:id(other.id),length(other.length) {
+:id(other.id),length(other.length),tags() {
 
     for(const auto & item : other.tags)
     {
@@ -75,7 +75,7 @@ Watchable::~Watchable() {
 tags.clear();
 }
 
-const long Watchable::getId() const {
+const unsigned long Watchable::getId() const {
     return id;
 }
 

@@ -35,7 +35,7 @@ public:
     virtual Watchable* steal()=0;
 
     //Getters
-    const long getId() const;
+    const unsigned long getId() const;
     int getLength() const;
     const std::vector<std::string> &getTags() const;
 
