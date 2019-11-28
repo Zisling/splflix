@@ -88,7 +88,7 @@ class Watch : public BaseAction {
 public:
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
-	void watchById(unsigned long id,Session &sess);
+	static Watch* watchById(unsigned long id,Session &sess);
 
     BaseAction *copy() override;
 };

@@ -221,9 +221,9 @@ std::string PrintWatchHistory::toString() const {
  * watch
  * */
 void Watch::act(Session &sess) {
-    int id;
-    std::cin>>id;
-    watchById(id,sess);
+    if (getStatus()==PENDING){
+        complete();
+    }
     }
 
 
@@ -237,38 +237,18 @@ std::string Watch::toString() const {
     return "Watch "+statusSt;
 }
 
-void Watch::watchById(unsigned long id,Session &sess) {
-
+Watch* Watch::watchById(unsigned long id,Session &sess) {
+    auto* watchAction = new Watch();
     if(id>0 && id<sess.getContent().size()+1){
         Watchable* toInsert =sess.getContent()[id-1]->copy();
         sess.getActiveUser()->insertToHistory(toInsert);
         std::cout <<"Watching "<<toInsert->toString() << std::endl;
-            Watchable* recommend = sess.getActiveUser()->getRecommendation(sess);
-            if(recommend!= nullptr) {
-                std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] "<< std::endl;
-                std::string userCommand;
-                std::cin >> userCommand;
-                bool heContinueToWatch= false;
-                while (userCommand != "n"&&!heContinueToWatch) {
-                    if (userCommand == "y") {
-                        auto* action = new Watch();
-                        sess.insertAction(action);
-                        action->complete();
-                        watchById(recommend->getId(), sess);
-                        heContinueToWatch = true;
-                    } else if (userCommand != "n") {
-                        std::cout << "[y/n] input" << std::endl;
-                        std::cin >> userCommand;
-                    }
-                }
-                complete();
-            } else
-                std::cout<<"Sorry! no more new content to watch!"<<std::endl;
-
     } else{
-        error("this id doesn't exist");
+        watchAction->error("this id doesn't exist");
     }
+    return watchAction;
 }
+
 /**
  * Log
  * */
@@ -279,6 +259,7 @@ void PrintActionsLog::act(Session &sess) {
     complete();
 }
 
+
 std::string PrintActionsLog::toString() const {
     std::string statusSt;
     if (getStatus()==PENDING){statusSt="PENDING";}
@@ -288,7 +269,6 @@ std::string PrintActionsLog::toString() const {
     return "PrintActionLog "+statusSt;
 }
 
-
 /**
  * Exit
  * */
@@ -296,7 +276,6 @@ std::string PrintActionsLog::toString() const {
 void Exit::act(Session &sess) {
     complete();
 }
-
 std::string Exit::toString() const {
     std::string statusSt;
     if (getStatus()==PENDING){statusSt="PENDING";}
@@ -305,6 +284,7 @@ std::string Exit::toString() const {
         return "Exit "+statusSt+" "+getErrorMsg();}
     return "Exit "+statusSt;
 }
+
 //copy for all actions
 BaseAction *CreateUser::copy() {
     return new CreateUser(*this);

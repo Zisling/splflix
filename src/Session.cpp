@@ -145,7 +145,7 @@ void Session::start() {
         else if (userCommand=="dupuser"){act(new DuplicateUser());}
         else if (userCommand=="content"){act(new PrintContentList());}
         else if (userCommand=="watchhist"){act(new PrintWatchHistory());}
-        else if (userCommand=="watch"){act(new Watch());}
+        else if (userCommand=="watch"){watch();}
         else if (userCommand=="log"){act(new PrintActionsLog());}
         else if (userCommand=="exit"){act(new Exit());}
         else{std::cout <<"command doesn't exist" << std::endl;}
@@ -213,6 +213,39 @@ void Session::clear() {
         }
         actionsLog.clear();
 }
+}
+
+bool Session::toRecommend(Watchable* recommend) {
+    if(recommend!= nullptr) {
+        std::cout << "We recommend watching " << recommend->toString() << ",continue watching? [y/n] "<< std::endl;
+        std::string userCommand;
+        std::cin >> userCommand;
+        while (userCommand != "n") {
+            if (userCommand == "y") {
+                return true;
+            } else if (userCommand != "n") {
+                std::cout << "[y/n] input" << std::endl;
+                std::cin >> userCommand;
+            }
+        }
+    } else{
+        std::cout<<"Sorry! no more new content to watch!"<<std::endl;
+        return false;
+    }
+    return false;
+}
+
+void Session::watch() {
+    unsigned long id;
+    std::cin>>id;
+    act(Watch::watchById(id,*this));
+    Watchable* recommend = getActiveUser()->getRecommendation(*this);
+    bool Continue =toRecommend(recommend);
+    while (Continue){
+        act(Watch::watchById(recommend->getId(), *this));
+        recommend = getActiveUser()->getRecommendation(*this);
+        Continue =toRecommend(recommend);
+    }
 }
 
 
