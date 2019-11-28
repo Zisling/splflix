@@ -7,13 +7,6 @@
 
 
 
-
-// TODO:
-//  - add the five to gen user
-//  -  clean getRecommendation i episode have now next episode index added
-
-
-
 tagCountPair::tagCountPair(int count, std::string tag):m_count(count),m_tag(std::move(tag)) {
 
 }
@@ -253,7 +246,7 @@ RerunRecommenderUser &RerunRecommenderUser::operator=(RerunRecommenderUser && ot
 GenreRecommenderUser::GenreRecommenderUser(const std::string &name) : User(name),genreCounterMap(),tagSet(),tagCountVector() {
 
 }
-//TODO please clean this function
+//TODO please clean this function -nir
 Watchable *GenreRecommenderUser::getRecommendation(Session &s) {
     Watchable* toRecommend= history[history.size() - 1]->getNextWatchable(s);
     for (const auto &item : s.getContent()) {
