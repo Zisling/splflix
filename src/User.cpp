@@ -3,6 +3,7 @@
 #include "../include/User.h"
 #include <limits>
 #include <algorithm>
+#include <utility>
 
 
 
@@ -13,9 +14,8 @@
 
 
 
-tagCountPair::tagCountPair(int count, std::string tag):m_count(count),m_tag(tag) {
+tagCountPair::tagCountPair(int count, std::string tag):m_count(count),m_tag(std::move(tag)) {
 
-//    TODO: look if you can use move here -to nir
 }
 
 const int tagCountPair::getCount() const {

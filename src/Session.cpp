@@ -10,7 +10,6 @@ using json = nlohmann::json;
 
 //Session Constructor
 Session::Session(const std::string &configFilePath):content(),actionsLog(),userMap() ,activeUser(nullptr) {
-//    TODO add a function so it will look better
 //    id counter
     int count = 1;
 //    init of json read file

@@ -23,13 +23,6 @@ public:
 struct tagCountPairComprator{
     bool operator ()(const tagCountPair &tagPair1, const tagCountPair &tagPair2);
 };
-/*struct TagCountPair
-{
-    std::string Tag;
-    int count;
-    TagCountPair(int,std::string);
-
-};*/
 
 class User{
 public:
